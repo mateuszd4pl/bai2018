@@ -1,9 +1,10 @@
 const app = angular.module('MeetApp', []);
 
 app.controller('controller', function ($scope) {
+    $scope.text = "test";
 
-    $scope.beep = function (time) {
-        navigator.notification.beep(time)
+    $scope.test = function () {
+        $scope.text = "tested";
     }
 
 });
