@@ -7,6 +7,9 @@
     <name>MeetApp</name>
     <description>Social media application for small groups of friends</description>
     <platform name="android"/>
+    <author>
+        Mateusz Dyrka, Kamil Przybycień, Szymon Piotrowski
+    </author>
 
     <plugin name="cordova-plugin-device" spec="~1.1.4"/>
     <plugin name="cordova-plugin-dialogs" spec="~1.3.1"/>
