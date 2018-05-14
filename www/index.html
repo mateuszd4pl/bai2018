@@ -12,7 +12,6 @@
             messagingSenderId: "59249875291"
         };
         firebase.initializeApp(config);
-        init();
     </script>
 
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -24,7 +23,7 @@
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
     <script src="js/pgb.js"></script>
 </head>
-<body ng-app="MeetApp" ng-controller="controller">
+<body ng-app="MeetApp" ng-controller="controller" onload="init()">
 <p ng-bind="text"></p>
 <button ng-click="test()"></button>
 
