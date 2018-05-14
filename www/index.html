@@ -4,10 +4,21 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <script src="js/pgb.js"></script>
     <script src="cordova.js"></script>
-    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"/>
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
+<div data-role="page" id="mainPage">
+    <div class="container">
+    ... Page header, footer and content ....
+    <a href="#otherPage" class="btn btn-primary">Go to other page</a>
+    </div>
+</div>
+<div data-role="page" id="otherPage">
+    ...
+    <a href="#mainPage" class="ui-btn">Go to main page</a>
+</div>
 </body>
 </html>
