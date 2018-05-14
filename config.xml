@@ -4,7 +4,6 @@
         xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="MeetApp"
->
 
     <name>MeetApp</name>
     <description>Social media application for small groups of friends</description>
