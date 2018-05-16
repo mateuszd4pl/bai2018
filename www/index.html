@@ -2,18 +2,58 @@
 <html>
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="js/pgb.js"></script>
     <script src="cordova.js"></script>
     <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
-    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
 <div data-role="page" id="mainPage">
-    <div class="container">
-    ... Page header, footer and content ....
-    <a href="#otherPage" class="btn btn-primary">Go to other page</a>
+
+
+    <div class="centre">
+        <div class="ui-grid-b">
+            <div class="ui-block-c"><div class="ui-grid-solo"><a href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Zaloguj</a></div>
+            </div>
+        </div>
+        <br>
+            <div class="ui-grid-solo"><a href="#popupJoin" style="nav-down: auto" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Zarejestruj się</a></div>
+    </div>
+
+
+
+    <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+        <form>
+            <div style="padding:10px 20px;">
+                <h3>Please sign in</h3>
+                <label for="un" class="ui-hidden-accessible">Username:</label>
+                <input name="user" id="un" value="" placeholder="username" data-theme="a" type="text">
+                <label for="pw" class="ui-hidden-accessible">Password:</label>
+                <input name="pass" id="pw" value="" placeholder="password" data-theme="a" type="password">
+                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Sign in</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div data-role="popup" id="popupJoin" data-theme="a" class="ui-corner-all">
+        <form>
+            <div style="padding:10px 50px;">
+                <h3>Please join us</h3>
+                <label for="unJoin" class="ui-hidden-accessible">Username:</label>
+                <input name="user" id="unJoin" value="" placeholder="username" data-theme="a" type="text">
+                <label for="pwJoin" class="ui-hidden-accessible">Password:</label>
+                <input name="pass" id="pwJoin" value="" placeholder="password" data-theme="a" type="password">
+                <label for="repwJoin" class="ui-hidden-accessible">Password:</label>
+                <input name="pass" id="repwJoin" value="" placeholder="password" data-theme="a" type="password">
+                <label for="nrJoin" class="ui-hidden-accessible">Username:</label>
+                <input name="user" id="nrJoin" value="" placeholder="Phone number" data-theme="a" type="number">
+                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Join</button>
+            </div>
+        </form>
     </div>
 </div>
 <div data-role="page" id="otherPage">
