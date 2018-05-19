@@ -11,8 +11,11 @@
     <script src="js/pgb.js"></script>
 </head>
 <body ng-app="MeetApp" ng-controller="controller" onload="init()">
-<p ng-bind="text"></p>
-<button ng-click="test()"></button>
+<input ng-model="user.name">
+<input ng-model="user.lastname">
+<input ng-model="user.mail">
+<input ng-model="user.phone">
+<button ng-click="saveUser($scope.user)">save user</button>
 </body>
 
 <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
