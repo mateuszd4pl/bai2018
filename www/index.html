@@ -11,16 +11,15 @@
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
+<!--
 <div data-role="page" id="mainPage">
 
 
-    <div class="centre">
-        <div class="ui-grid-b">
-            <div class="ui-block-c"><div class="ui-grid-solo"><a href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Zaloguj</a></div>
-            </div>
+    <div style="text-align: center">
+        <div class="center">
+            <div class="ui-grid-solo"><a href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Zaloguj się</a></div>
+            <div class="ui-grid-solo"><a href="#popupJoin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Zarejestruj się</a></div>
         </div>
-        <br>
-            <div class="ui-grid-solo"><a href="#popupJoin" style="nav-down: auto" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Zarejestruj się</a></div>
     </div>
 
 
@@ -56,9 +55,71 @@
         </form>
     </div>
 </div>
-<div data-role="page" id="otherPage">
-    ...
-    <a href="#mainPage" class="ui-btn">Go to main page</a>
+-->
+
+<div data-role="page" id="editPerson">
+    <div data-role="header">
+        <div data-role="navbar" >
+            <ul>
+                <li><a href="#editAccount" data-icon="arrow-l" data-transition="slide"></a></li>
+                <li><a href="#anylink" data-icon="home"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div role="main" class="ui-content">
+        <input id="editImie" value="" placeholder="Imię" data-theme="a" type="text">
+        <input id="editNazwisko" value="" placeholder="Nazwisko" data-theme="a" type="text">
+        <input id="editNumer" value="" placeholder="Numer telefonu" data-theme="a" type="number">
+        <input id="pw" value="" placeholder="Hasło" data-theme="a" type="password">
+        <button type="submit" class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit">Zapisz zmiany</button>
+    </div>
+
 </div>
+
+<div data-role="page" id="editAccount">
+    <div data-role="header">
+        <div data-role="navbar" >
+            <ul>
+                <li><a href="#anylink" data-icon="arrow-l"></a></li>
+                <li><a href="#anylink" data-icon="home"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div role="main" class="ui-content">
+        <div style="text-align: center">
+            <div class="center">
+                <a href="#editPerson" class="ui-btn" data-transition="slidedown">Edytuj profil</a>
+                <br>
+                <a href="#editPassword" class="ui-btn" data-transition="slidedown">Zmień hasło</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div data-role="page" id="editPassword">
+    <div data-role="header">
+        <div data-role="navbar" >
+            <ul>
+                <li><a href="#editAccount" data-icon="arrow-l" data-transition="slide"></a></li>
+                <li><a href="#anylink" data-icon="home"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div role="main" class="ui-content">
+        <input name="pass" id="pw1" value="" placeholder="Aktualne hasło" data-theme="a" type="password">
+        <input name="pass" id="newPw" value="" placeholder="Nowe hasło" data-theme="a" type="password">
+        <input name="pass" id="reNewPw" value="" placeholder="Powtórz hasło" data-theme="a" type="password">
+        <button type="submit" class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit">Zapisz zmiany</button>
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+</div>
+
 </body>
 </html>
