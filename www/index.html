@@ -9,16 +9,15 @@
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
     <script src="js/pgb.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
 </head>
 <body ng-app="MeetApp" ng-controller="controller" onload="init()">
-<input ng-model="user.name">
-<input ng-model="user.lastname">
-<input ng-model="user.mail">
-<input ng-model="user.phone">
-<button ng-click="saveUser($scope.user)">save user</button>
+<input ng-model="currentUser.name">
+<input ng-model="currentUser.lastname">
+<input ng-model="currentUser.mail">
+<input ng-model="currentUser.phone">
+<button ng-click="saveUser()">save user</button>
 </body>
-
-<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
 <script>
     const config = {
         apiKey: "AIzaSyAuvAZqxZvsINf-phvCmvfkdMwiDGO9WyE",
@@ -29,5 +28,5 @@
         messagingSenderId: "59249875291"
     };
     firebase.initializeApp(config);
- </script>
+</script>
 </html>
