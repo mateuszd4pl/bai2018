@@ -62,7 +62,7 @@
         <div data-role="navbar" >
             <ul>
                 <li><a href="#editAccount" data-icon="arrow-l" data-transition="slide"></a></li>
-                <li><a href="#anylink" data-icon="home"></a></li>
+                <li><a href="#mainGroup" data-icon="home"></a></li>
             </ul>
         </div>
     </div>
@@ -79,10 +79,10 @@
 
 <div data-role="page" id="editAccount">
     <div data-role="header">
-        <div data-role="navbar" >
+        <div data-role="navbar">
             <ul>
                 <li><a href="#anylink" data-icon="arrow-l"></a></li>
-                <li><a href="#anylink" data-icon="home"></a></li>
+                <li><a href="#mainGroup" data-icon="home"></a></li>
             </ul>
         </div>
     </div>
@@ -90,9 +90,10 @@
     <div role="main" class="ui-content">
         <div style="text-align: center">
             <div class="center">
-                <a href="#editPerson" class="ui-btn" data-transition="slidedown">Edytuj profil</a>
+                <h3>Witaj, ...</h3>
+                <a href="#editPerson" class="ui-btn" data-transition="flip">Edytuj profil</a>
                 <br>
-                <a href="#editPassword" class="ui-btn" data-transition="slidedown">Zmień hasło</a>
+                <a href="#editPassword" class="ui-btn" data-transition="flip">Zmień hasło</a>
             </div>
         </div>
     </div>
@@ -104,7 +105,7 @@
         <div data-role="navbar" >
             <ul>
                 <li><a href="#editAccount" data-icon="arrow-l" data-transition="slide"></a></li>
-                <li><a href="#anylink" data-icon="home"></a></li>
+                <li><a href="#mainGroup" data-icon="home"></a></li>
             </ul>
         </div>
     </div>
@@ -119,6 +120,18 @@
     <div data-role="footer">
 
     </div>
+</div>
+
+<div data-role="page" id="mainGroup">
+    <div data-role="header">
+            <a href="#" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+            <h1>My App</h1>
+            <button class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext">Save</button>
+    </div>
+
+    <div role="main" class="ui-content">
+    </div>
+
 </div>
 
 </body>
