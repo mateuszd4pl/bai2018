@@ -63,24 +63,15 @@ function User(mail, name, lastname, phone) {
 
     this.friends = [];
     this.groups = [];
-
-    this.addFriend = (userId)=>{this.friends.push(userId)};
-    this.addToGroup = (groupId)=>{this.groups.push(groupId)}
 }
 
 function Group(name) {
     this.name = name;
     this.members = [];
     this.events = [];
-
-    this.addMember = (userId)=>{this.members.push(userId)};
-    this.addEvent = (event)=>{this.events.push(event)};
 }
 
 function Event(name) {
     this.name = name;
-
     this.participants = [];
-
-    this.addParticipant = (userId)=>{this.participants.push(userId)}
 }
