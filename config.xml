@@ -5,6 +5,11 @@
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="MeetApp">
 
+    <gap:plugin name="cordova-plugin-whitelist" source="npm" />
+    <access origin="*" />
+    <allow-navigation href="*" />
+    <allow-intent href="*" />
+
     <name>MeetApp</name>
     <description>Social media application for small groups of friends</description>
     <platform name="android"/>
