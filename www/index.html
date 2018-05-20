@@ -125,13 +125,22 @@
     </div>
 
     <div role="main" class="ui-content">
+
     </div>
 
     <div data-role="popup" id="addMenu" data-theme="b" data-overlay-theme="a">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
             <li data-role="list-divider"></li>
-            <li><a href="#">Dołącz do grupy</a></li>
-            <li><a href="#" >Utwórz nową grupę</a></li>
+            <li><div data-role="collapsible" data-inset="false">
+                <h2>Dołącz do grupy</h2>
+                <ul data-role="listview">
+                    <li><input name="user" id="joinToGroupName" value="" placeholder="Nazwa" data-theme="a" type="text"></li>
+                    <li><input name="user" id="JoinToGroupID" value="" placeholder="ID" data-theme="a" type="number"></li>
+                    <li><input name="pass" id="JoinToGroupPassword" value="" placeholder="Hasło" data-theme="a" type="password"></li>
+                    <li><button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Dołącz</button></li>
+                </ul>
+            </div></li>
+            <li><a href="#newGroup" >Utwórz nową grupę</a></li>
         </ul>
     </div>
 
@@ -142,8 +151,43 @@
             <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
         </ul>
     </div>
+
+
+
+    <div data-role="popup" id="popupPadded" class="ui-content">
+        <p>This is a popup with the <code>ui-content</code> class added to the popup container.</p>
+    </div>
+
+    <div data-role="popup" id="popupJoinToGroup" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
+        <form>
+            <div style="padding:10px 50px;">
+                <h3>Please join us</h3>
+                <input name="user" id="joinToGroupName1" value="" placeholder="Nazwa" data-theme="a" type="text">
+                <input name="user" id="JoinToGroupID1" value="" placeholder="ID" data-theme="a" type="number">
+                <input name="pass" id="JoinToGroupPassword1" value="" placeholder="Hasło" data-theme="a" type="password">
+                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Join</button>
+            </div>
+        </form>
+    </div>
 </div>
 
+<!-- Utwórz grupę -->
+<div data-role="page" id="newGroup">
+    <div data-role="header">
+        <a href="#mainGroup" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+        <h1>Utwórz grupę</h1>
+        <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <input id="newGroupName" value="" placeholder="Nazwa" data-theme="a" type="text">
+        <input id="newGroupPassword" value="" placeholder="Hasło" data-theme="a" type="password">
+        <button type="submit" class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-check">Stwórz grupę</button>
+    </div>
+
+</div>
+
+<!-- Czat -->
 
 
 </body>
