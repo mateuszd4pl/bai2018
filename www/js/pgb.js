@@ -5,11 +5,15 @@ app.service('storageService', function () {
 
     this.saveUser = async (user) => {
         try {
-            let key = user.mail;
+            let key = createKeyFromMail(user.mail);
 
-            let usersRef = this.db.ref().child('users');
-            usersRef.set(
-                {[key]: user}
+            if (key===null || key===undefined || key===""){
+                throw "Mail is not proper."
+            }
+
+            let usersRef = this.db.ref().child('users/' + key);
+            usersRef.update(
+                user
             );
             return key;
         } catch (e) {
@@ -22,13 +26,17 @@ app.controller('controller', function ($scope, storageService) {
     $scope.currentUser = new User();
 
     $scope.saveUser = function saveUser() {
-        try{
+        try {
             storageService.saveUser($scope.currentUser)
         } catch (e) {
             navigator.notification.alert(e)
         }
     }
 });
+
+function createKeyFromMail(mail){
+    return mail.replace(/\./g, '');
+}
 
 function init() {
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -37,7 +45,6 @@ function init() {
 function onDeviceReady() {
 
 }
-
 
 function User(mail, name, lastname, phone) {
 
