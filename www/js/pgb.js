@@ -22,7 +22,11 @@ app.controller('controller', function ($scope, storageService) {
     $scope.currentUser = new User();
 
     $scope.saveUser = function saveUser() {
-        storageService.saveUser($scope.currentUser)
+        try{
+            storageService.saveUser($scope.currentUser)
+        } catch (e) {
+            navigator.notification.alert(e)
+        }
     }
 });
 
