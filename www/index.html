@@ -11,10 +11,10 @@
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
+
+<!-- Logowanie -->
 <!--
 <div data-role="page" id="mainPage">
-
-
     <div style="text-align: center">
         <div class="center">
             <div class="ui-grid-solo"><a href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Zaloguj się</a></div>
@@ -24,7 +24,7 @@
 
 
 
-    <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+    <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
         <form>
             <div style="padding:10px 20px;">
                 <h3>Please sign in</h3>
@@ -38,7 +38,7 @@
     </div>
 
 
-    <div data-role="popup" id="popupJoin" data-theme="a" class="ui-corner-all">
+    <div data-role="popup" id="popupJoin" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
         <form>
             <div style="padding:10px 50px;">
                 <h3>Please join us</h3>
@@ -57,14 +57,12 @@
 </div>
 -->
 
+<!-- Edycja profilu -->
 <div data-role="page" id="editPerson">
     <div data-role="header">
-        <div data-role="navbar" >
-            <ul>
-                <li><a href="#editAccount" data-icon="arrow-l" data-transition="slide"></a></li>
-                <li><a href="#mainGroup" data-icon="home"></a></li>
-            </ul>
-        </div>
+        <a href="#editAccount" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+        <h1>Edytuj profil</h1>
+        <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
     </div>
 
     <div role="main" class="ui-content">
@@ -77,14 +75,12 @@
 
 </div>
 
+<!-- Ustawienia-->
 <div data-role="page" id="editAccount">
     <div data-role="header">
-        <div data-role="navbar">
-            <ul>
-                <li><a href="#anylink" data-icon="arrow-l"></a></li>
-                <li><a href="#mainGroup" data-icon="home"></a></li>
-            </ul>
-        </div>
+        <a href="#" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+        <h1>Ustawienia</h1>
+        <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
     </div>
 
     <div role="main" class="ui-content">
@@ -100,14 +96,12 @@
 
 </div>
 
+<!-- Edycja hasła -->
 <div data-role="page" id="editPassword">
     <div data-role="header">
-        <div data-role="navbar" >
-            <ul>
-                <li><a href="#editAccount" data-icon="arrow-l" data-transition="slide"></a></li>
-                <li><a href="#mainGroup" data-icon="home"></a></li>
-            </ul>
-        </div>
+        <a href="#editAccount" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+        <h1>Zmień hasło</h1>
+        <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
     </div>
 
     <div role="main" class="ui-content">
@@ -122,17 +116,35 @@
     </div>
 </div>
 
+<!-- Moje grupy -->
 <div data-role="page" id="mainGroup">
     <div data-role="header">
-            <a href="#" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
-            <h1>My App</h1>
-            <button class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext">Save</button>
+            <a href="#barsMenu" data-rel="popup" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext"></a>
+            <h1>Moje grupy</h1>
+            <a href="#addMenu" data-rel="popup" data-transition="slide" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-plus ui-btn-icon-notext"></a>
     </div>
 
     <div role="main" class="ui-content">
     </div>
 
+    <div data-role="popup" id="addMenu" data-theme="b" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <li><a href="#">Dołącz do grupy</a></li>
+            <li><a href="#" >Utwórz nową grupę</a></li>
+        </ul>
+    </div>
+
+    <div data-role="popup" id="barsMenu" data-theme="a" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <li><a href="#editAccount" data-transition="slidedown">Ustawienia</a></li>
+            <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
+        </ul>
+    </div>
 </div>
+
+
 
 </body>
 </html>
