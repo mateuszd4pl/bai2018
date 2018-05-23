@@ -5,7 +5,7 @@ app.service('storageService', function () {
 
     this.addUserIfEmpty = async (user) => {
         try {
-            let key = createKeyFromMail(user.mail);
+            let key = prepareKey(user.mail);
 
             if (key === null || key === undefined || key === "") {
                 throw "Mail is not proper."
@@ -15,7 +15,7 @@ app.service('storageService', function () {
             usersRef.once("value", function (data) {
                 try {
                     if (data.val() === null) {
-                        usersRef.update(
+                        usersRef.set(
                             user
                         );
                     } else {
@@ -29,22 +29,63 @@ app.service('storageService', function () {
         } catch (e) {
             navigator.notification.alert(e)
         }
-    }
+    };
+
+    this.updateUser = async (user) => {
+        let key = prepareKey(user.mail);
+
+        try {
+            if (key === null || key === undefined || key === "") {
+                throw "Mail is not proper."
+            }
+
+            let usersRef = this.db.ref().child('users/' + key);
+            usersRef.update(user)
+        } catch (e) {
+            navigator.notification.alert(e)
+        }
+    };
+
+    this.addGroupAndGetKey = async (group) => {
+        try {
+            let groupsRef = await this.db.ref().child('groups').push();
+            let key = groupsRef.key;
+            if (group.name === "" || group.name === null || group.name === undefined) {
+                throw "group name not proper."
+            }
+            groupsRef.set(group);
+            return key;
+        } catch (e) {
+            navigator.notification.alert(e)
+        }
+    };
+
+    this.updateGroup = async
 });
 
 app.controller('controller', function ($scope, storageService) {
     $scope.currentUser = new User();
+    $scope.currentGroup = new Group();
+    $scope.currentEvent = new Event();
 
-    $scope.addUserIfEmpty = function saveUser() {
+    $scope.addUserIfEmpty = () => {
         try {
             storageService.addUserIfEmpty($scope.currentUser)
         } catch (e) {
             navigator.notification.alert(e)
         }
+    };
+
+    $scope.addGroupAndGetKey = () => {
+        storageService.addGroupAndGetKey().then((key) => {
+            $scope.currentUser.groups.push(key);
+            storageService.updateUser($scope.currentUser);
+        }
+    )
     }
 });
 
-function createKeyFromMail(mail) {
+function prepareKey(mail) {
     return mail.replace(/\./g, '');
 }
 
@@ -87,12 +128,20 @@ function User(mail, name, lastname, phone) {
 }
 
 function Group(name) {
-    this.name = name;
+    if (name === undefined) {
+        this.name = "";
+    } else {
+        this.name = name
+    }
     this.members = [];
     this.events = [];
 }
 
 function Event(name) {
-    this.name = name;
+    if (name === undefined) {
+        this.name = "";
+    } else {
+        this.name = name
+    }
     this.participants = [];
 }
