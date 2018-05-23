@@ -125,7 +125,30 @@
     </div>
 
     <div role="main" class="ui-content">
-
+        <div role="main" class="ui-content">
+            <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+                <li>
+                    <a href="#demo-mail">
+                        <h3>Nazwa grupy</h3>
+                        <p class="topic"><strong>aaaa</strong></p>
+                        <p>bbbbb</p>
+                        <p class="ui-li-aside"><strong>Ilość wydarzeń</strong></p>
+                    </a>
+                    <a href="#" class="delete">Delete</a>
+                </li>
+            </ul>
+        </div><!-- /content -->
+        <div id="confirm" class="ui-content" data-role="popup" data-theme="a">
+            <p id="question">Are you sure you want to delete:</p>
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <a id="yes" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Yes</a>
+                </div>
+                <div class="ui-block-b">
+                    <a id="cancel" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Cancel</a>
+                </div>
+            </div>
+        </div><!-- /popup -->
     </div>
 
     <div data-role="popup" id="addMenu" data-theme="b" data-overlay-theme="a">
@@ -176,7 +199,7 @@
     <div data-role="header">
         <a href="#mainGroup" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
         <h1>Utwórz grupę</h1>
-        <a href="#demo-page" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+        <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
     </div>
 
     <div role="main" class="ui-content">
@@ -196,48 +219,7 @@
         <a href="#demo-intro" data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
         <a href="#" onclick="window.location.reload()" data-icon="back" data-iconpos="notext">Refresh</a>
     </div><!-- /header -->
-    <div role="main" class="ui-content">
-        <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
-            <li>
-                <a href="#demo-mail">
-                    <h3>Grillowe wieczory</h3>
-                    <p class="topic"><strong>Redfin listing updates for today</strong></p>
-                    <p>There are 3 updates for the home on your watchlist: 1 updated MLS listing and 2 homes under contract.</p>
-                    <p class="ui-li-aside"><strong>2:52</strong>PM</p>
-                </a>
-                <a href="#" class="delete">Delete</a>
-            </li>
-            <li>
-                <a href="#demo-mail">
-                    <h3>Angela Smith</h3>
-                    <p class="topic"><strong>Link Request</strong></p>
-                    <p>My name is Angela Smith, SEO Consultant. I've greatly enjoyed looking through your site and I was wondering if you'd be interested in providing a link</p>
-                    <p class="ui-li-aside"><strong>1:24</strong>PM</p>
-                </a>
-                <a href="#" class="delete">Delete</a>
-            </li>
-            <li>
-                <a href="#demo-mail">
-                    <h3>Mike Taylor</h3>
-                    <p class="topic"><strong>Re: This weekend in Maine</strong></p>
-                    <p>Hey little buddy, sorry but I can't make it up to vacationland this weekend. Maybe next weekend?</p>
-                    <p class="ui-li-aside"><strong>3:24</strong>PM</p>
-                </a>
-                <a href="#" class="delete">Delete</a>
-            </li>
-        </ul>
-    </div><!-- /content -->
-    <div id="confirm" class="ui-content" data-role="popup" data-theme="a">
-        <p id="question">Are you sure you want to delete:</p>
-        <div class="ui-grid-a">
-            <div class="ui-block-a">
-                <a id="yes" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Yes</a>
-            </div>
-            <div class="ui-block-b">
-                <a id="cancel" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Cancel</a>
-            </div>
-        </div>
-    </div><!-- /popup -->
+
 </div>
 
 </body>
