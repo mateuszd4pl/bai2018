@@ -17,6 +17,11 @@
 <input ng-model="currentUser.mail">
 <input ng-model="currentUser.phone">
 <button ng-click="addUserIfEmpty()">save user</button>
+<input ng-model="currentGroup.name">
+<button ng-click="addGroupAndGetKey()">add group</button>
+<ul>
+    <li ng-repeat="x in currentUser.groups">{{x}}</li>
+</ul>
 </body>
 <script>
     const config = {

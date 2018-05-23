@@ -22,12 +22,12 @@ app.service('storageService', function () {
                         throw "User already exists!"
                     }
                 } catch (e) {
-                    navigator.notification.alert(e)
+                    handleException(e);
                 }
             });
 
         } catch (e) {
-            navigator.notification.alert(e)
+            handleException(e);
         }
     };
 
@@ -42,7 +42,7 @@ app.service('storageService', function () {
             let usersRef = this.db.ref().child('users/' + key);
             usersRef.update(user)
         } catch (e) {
-            navigator.notification.alert(e)
+            handleException(e);
         }
     };
 
@@ -56,11 +56,11 @@ app.service('storageService', function () {
             groupsRef.set(group);
             return key;
         } catch (e) {
-            navigator.notification.alert(e)
+            handleException(e);
         }
     };
 
-    this.updateGroup = async
+    // this.updateGroup = async
 });
 
 app.controller('controller', function ($scope, storageService) {
@@ -72,21 +72,30 @@ app.controller('controller', function ($scope, storageService) {
         try {
             storageService.addUserIfEmpty($scope.currentUser)
         } catch (e) {
-            navigator.notification.alert(e)
+            handleException(e);
         }
     };
 
     $scope.addGroupAndGetKey = () => {
-        storageService.addGroupAndGetKey().then((key) => {
-            $scope.currentUser.groups.push(key);
-            storageService.updateUser($scope.currentUser);
-        }
-    )
+        storageService.addGroupAndGetKey($scope.currentGroup).then((key) => {
+                if (key !== null && key !== "" && key !== undefined) {
+                    $scope.currentUser.groups.push(key);
+                    storageService.updateUser($scope.currentUser);
+                }
+            }
+        ).then(() => {
+            $scope.$apply()
+        });
     }
 });
 
-function prepareKey(mail) {
-    return mail.replace(/\./g, '');
+function prepareKey(str) {
+    return str.replace(/\./g, '');
+}
+
+function handleException(e) {
+    console.log(e);
+    // navigator.notification.alert(e)
 }
 
 function init() {
