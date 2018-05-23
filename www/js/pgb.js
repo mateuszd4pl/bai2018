@@ -3,19 +3,29 @@ const app = angular.module('MeetApp', []);
 app.service('storageService', function () {
     this.db = firebase.database();
 
-    this.saveUser = async (user) => {
+    this.addUserIfEmpty = async (user) => {
         try {
             let key = createKeyFromMail(user.mail);
 
-            if (key===null || key===undefined || key===""){
+            if (key === null || key === undefined || key === "") {
                 throw "Mail is not proper."
             }
 
             let usersRef = this.db.ref().child('users/' + key);
-            usersRef.update(
-                user
-            );
-            return key;
+            usersRef.once("value", function (data) {
+                try {
+                    if (data.val() === null) {
+                        usersRef.update(
+                            user
+                        );
+                    } else {
+                        throw "User already exists!"
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+            });
+
         } catch (e) {
             console.log(e)
         }
@@ -25,16 +35,16 @@ app.service('storageService', function () {
 app.controller('controller', function ($scope, storageService) {
     $scope.currentUser = new User();
 
-    $scope.saveUser = function saveUser() {
+    $scope.addUserIfEmpty = function saveUser() {
         try {
-            storageService.saveUser($scope.currentUser)
+            storageService.addUserIfEmpty($scope.currentUser)
         } catch (e) {
             navigator.notification.alert(e)
         }
     }
 });
 
-function createKeyFromMail(mail){
+function createKeyFromMail(mail) {
     return mail.replace(/\./g, '');
 }
 
