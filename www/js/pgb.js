@@ -22,12 +22,12 @@ app.service('storageService', function () {
                         throw "User already exists!"
                     }
                 } catch (e) {
-                    console.log(e);
+                    navigator.notification.alert(e)
                 }
             });
 
         } catch (e) {
-            console.log(e)
+            navigator.notification.alert(e)
         }
     }
 });
