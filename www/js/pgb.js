@@ -22,12 +22,12 @@ app.service('storageService', function () {
                         throw "User already exists!"
                     }
                 } catch (e) {
-                    handleException(e);
+                    print(e);
                 }
             });
 
         } catch (e) {
-            handleException(e);
+            print(e);
         }
     };
 
@@ -42,7 +42,7 @@ app.service('storageService', function () {
             let usersRef = this.db.ref().child('users/' + key);
             usersRef.update(user)
         } catch (e) {
-            handleException(e);
+            print(e);
         }
     };
 
@@ -53,39 +53,126 @@ app.service('storageService', function () {
             if (group.name === "" || group.name === null || group.name === undefined) {
                 throw "group name not proper."
             }
-            groupsRef.set(group);
+            let newGroup = {};
+            Object.assign(newGroup, group);
+            delete newGroup.key;
+            groupsRef.set(newGroup);
+
             return key;
+
         } catch (e) {
-            handleException(e);
+            print(e);
         }
     };
 
-    // this.updateGroup = async
+    this.updateGroup = async (groupId, group) => {
+        try {
+            let groupsRef = await this.db.ref().child('groups/' + groupId);
+            if (group.name === "" || group.name === null || group.name === undefined) {
+                throw "group name not proper."
+            }
+
+            let newGroup = {};
+            Object.assign(newGroup, group);
+            delete newGroup.key;
+            groupsRef.set(newGroup)
+
+        } catch (e) {
+            print(e)
+        }
+    };
+
+    this.addMessage = async (message) => {
+        let messagesRef = await this.db.ref().child('messages/').push();
+        let key = messagesRef.key;
+        messagesRef.set(message);
+        return key;
+    };
+
+    this.addMessageToGroup = async (groupId ,messageId) => {
+        let groupsRef = await this.db.ref().child('groups/' + groupId+"/chat/").push(messageId);
+
+    };
+
+    this.observeGroup = (groupId, task) => {
+        this.db.ref().child("groups/" + groupId + '/chat/').on("child_added", (child) => {
+            task(child);
+        });
+    };
+
+    this.unobserveGroup = (groupId) => {
+        this.db.ref().child("groups/" + groupId + '/chat/').off("child_added");
+    }
 });
 
 app.controller('controller', function ($scope, storageService) {
     $scope.currentUser = new User();
     $scope.currentGroup = new Group();
     $scope.currentEvent = new Event();
+    $scope.currentMessage = new Message();
+    $scope.currentChat = [];
 
-    $scope.addUserIfEmpty = () => {
+    $scope.addUser = () => {
         try {
             storageService.addUserIfEmpty($scope.currentUser)
         } catch (e) {
-            handleException(e);
+            print(e);
         }
     };
 
-    $scope.addGroupAndGetKey = () => {
+    $scope.addGroup = () => {
         storageService.addGroupAndGetKey($scope.currentGroup).then((key) => {
                 if (key !== null && key !== "" && key !== undefined) {
                     $scope.currentUser.groups.push(key);
                     storageService.updateUser($scope.currentUser);
+                    let oldKey = $scope.currentGroup.key;
+                    $scope.currentGroup.key = key;
+
+                    $scope.changeGroup(key, oldKey);
                 }
             }
         ).then(() => {
             $scope.$apply()
         });
+    };
+
+    $scope.sendMessage = () => {
+        let date = new Date();
+
+        $scope.currentMessage.time = date.getTime();
+        $scope.currentMessage.author = $scope.currentUser.name;
+
+        storageService.addMessage($scope.currentMessage).then((key) => {
+            storageService.addMessageToGroup($scope.currentGroup.key, key)
+            // $scope.currentGroup.chat.push(key);
+            // storageService.updateGroup($scope.currentGroup.key, $scope.currentGroup);
+        }).then(() => {
+            $scope.$apply();
+        })
+    };
+
+    $scope.changeGroup = (groupId1, groupId2) => {
+        storageService.unobserveGroup(groupId2);
+        storageService.observeGroup(groupId1, (child) => {
+            $scope.currentGroup.chat.push(child.val());
+            storageService.db.ref().child("messages/" + child.val()).once("value", (data) => {
+                $scope.currentChat.push(data.val())
+            });
+
+            // $scope.currentGroup.chat.forEach((key) => {
+            //     storageService.db.ref().child("messages/" + key).once("value", (data) => {
+            //         print(data.val());
+            //         print($scope.currentChat);
+            //         print($scope.currentChat.indexOf(data.val()));
+            //
+            //         if($scope.currentChat.indexOf(data.val())===-1){
+            //             $scope.currentChat.push(data.val())
+            //         }
+            //     }).then(() => {
+            //         $scope.$apply()
+            //     });
+            // });
+        })
     }
 });
 
@@ -93,7 +180,7 @@ function prepareKey(str) {
     return str.replace(/\./g, '');
 }
 
-function handleException(e) {
+function print(e) {
     console.log(e);
     // navigator.notification.alert(e)
 }
@@ -144,6 +231,7 @@ function Group(name) {
     }
     this.members = [];
     this.events = [];
+    this.chat = [];
 }
 
 function Event(name) {
@@ -153,4 +241,10 @@ function Event(name) {
         this.name = name
     }
     this.participants = [];
+}
+
+function Message(author, time, content) {
+    this.author = author;
+    this.time = time;
+    this.content = content;
 }
