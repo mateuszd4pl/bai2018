@@ -12,18 +12,19 @@
     <script src="js/firebase.js"></script>
 </head>
 <body ng-app="MeetApp" ng-controller="controller" onload="init()">
+<h1>{{currentUser.name}} {{currentGroup.name}}</h1>
 <input ng-model="currentUser.name">
 <input ng-model="currentUser.lastname">
 <input ng-model="currentUser.mail">
 <input ng-model="currentUser.phone">
-<button ng-click="addUser()">save user</button>
+<button ng-click="addUser()">login</button>
 <input ng-model="currentGroup.name">
 <button ng-click="addGroup()">add group</button>
+<input ng-model="otherUser.mail">
+<button ng-click="addUserToGroup(otherUser)">Add user to current group</button>
 <input ng-model="currentMessage.content">
 <button ng-click="sendMessage()">Wyślij</button>
-<ul>
-    <li ng-repeat="x in currentChat">{{x.author}} napisał: {{x.content}}</li>
-</ul>
+<div ng-repeat="x in currentChat">{{x.author}} napisał: {{x.content}}<hr></div>
 </body>
 <script>
     const config = {
