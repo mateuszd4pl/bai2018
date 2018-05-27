@@ -90,8 +90,24 @@
                 <a href="#editPerson" class="ui-btn" data-transition="flip">Edytuj profil</a>
                 <br>
                 <a href="#editPassword" class="ui-btn" data-transition="flip">Zmień hasło</a>
+                <br>
+                <a href="#popupAddFriend" class="ui-btn" data-transition="pop" data-rel="popup">Dodaj znajomego</a>
+                <br>
+                <a href="#editPassword" class="ui-btn" data-transition="flip">Lista znajomych</a>
             </div>
         </div>
+    </div>
+
+    <div data-role="popup" id="popupAddFriend" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
+        <form>
+            <div style="padding:10px 50px;">
+                <h3>Dodaj znajomego</h3>
+                <input name="user" id="unJoin" value="" placeholder="adres email" data-theme="a" type="email">
+                <h3>lub</h3>
+                <input name="user" id="nrJoin" value="" placeholder="ID" data-theme="a" type="number">
+                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Dodaj</button>
+            </div>
+        </form>
     </div>
 
 </div>
@@ -128,7 +144,7 @@
         <div role="main" class="ui-content">
             <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
                 <li>
-                    <a href="#demo-mail">
+                    <a href="#czat">
                         <h3>Nazwa grupy</h3>
                         <p class="topic"><strong>aaaa</strong></p>
                         <p>bbbbb</p>
@@ -170,7 +186,7 @@
     <div data-role="popup" id="barsMenu" data-theme="a" data-overlay-theme="a">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
             <li data-role="list-divider"></li>
-            <li><a href="#editAccount" data-transition="slidedown">Ustawienia</a></li>
+            <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
             <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
         </ul>
     </div>
@@ -210,15 +226,25 @@
 
 </div>
 
-<!-- Czat -->
+<!-- Widok grupy -->
 
 
-<div data-role="page" id="demo-page" data-title="Inbox" data-url="demo-page">
-    <div data-role="header" data-position="fixed" data-theme="b">
-        <h1>Inbox</h1>
-        <a href="#demo-intro" data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>
-        <a href="#" onclick="window.location.reload()" data-icon="back" data-iconpos="notext">Refresh</a>
-    </div><!-- /header -->
+<div data-role="page" id="czat">
+    <div data-role="header">
+        <a href="#editAccount" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+        <h1>Nazwa grupy</h1>
+        <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+
+
 
 </div>
 
