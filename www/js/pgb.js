@@ -1,6 +1,6 @@
 const app = angular.module('MeetApp', []);
 
-app.service('storageService', function () {
+app.service('storageService', ()=> {
     this.db = firebase.database();
 
     this.addUserIfEmpty = async (user, callback) => {
@@ -126,17 +126,6 @@ app.service('storageService', function () {
                 print(e)
             }
         });
-        // usersRef.once("value", function (data) {
-        //     try {
-        //         if (data.val() !== null) {
-        //             usersGroupsRef.set(groupId);
-        //         } else {
-        //             throw "no such user!"
-        //         }
-        //     } catch (e) {
-        //         print(e)
-        //     }
-        // });
     };
 
     this.addUserToGroup = async (mail, groupId) => {
@@ -190,7 +179,7 @@ app.service('storageService', function () {
     };
 
     this.observeUserGroups = (mail, task) => {
-        this.db.ref().child("users/" + prepareKey(mail) + "groups/").on("child_added", (child) => {
+        this.db.ref().child("users/" + prepareKey(mail) + "/groups/").on("child_added", (child) => {
             print("hello");
             task(child)
         })
