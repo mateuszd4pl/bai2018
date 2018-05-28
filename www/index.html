@@ -70,16 +70,27 @@
         <input id="editNazwisko" value="" placeholder="Nazwisko" data-theme="a" type="text">
         <input id="editNumer" value="" placeholder="Numer telefonu" data-theme="a" type="number">
         <input id="pw" value="" placeholder="Hasło" data-theme="a" type="password">
-        <button type="submit" class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit">Zapisz zmiany</button>
+        <a href="#popupSaveNewDate" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit">Zapisz zmiany</a>
+    </div>
+
+    <div data-role="popup" id="popupSaveNewDate" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+        <div data-role="header" data-theme="a">
+            <h1>Zapisać zmiany?</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <h3 class="ui-title">Czy na pewno chcesz zmienić dane?</h3>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Anuluj</a>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Zapisz zmiany</a>
+        </div>
     </div>
 
 </div>
 
-<!-- Ustawienia-->
+<!-- Ustawienia - mój profil -->
 <div data-role="page" id="editAccount">
     <div data-role="header">
         <a href="#" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
-        <h1>Ustawienia</h1>
+        <h1>Mój profil</h1>
         <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
     </div>
 
@@ -93,7 +104,7 @@
                 <br>
                 <a href="#popupAddFriend" class="ui-btn" data-transition="pop" data-rel="popup">Dodaj znajomego</a>
                 <br>
-                <a href="#editPassword" class="ui-btn" data-transition="flip">Lista znajomych</a>
+                <a href="#friendsList" class="ui-btn" data-transition="flip">Lista znajomych</a>
             </div>
         </div>
     </div>
@@ -124,12 +135,25 @@
         <input name="pass" id="pw1" value="" placeholder="Aktualne hasło" data-theme="a" type="password">
         <input name="pass" id="newPw" value="" placeholder="Nowe hasło" data-theme="a" type="password">
         <input name="pass" id="reNewPw" value="" placeholder="Powtórz hasło" data-theme="a" type="password">
-        <button type="submit" class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit">Zapisz zmiany</button>
+        <a href="#popupSaveNewPassword" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit">Zapisz zmiany</a>
     </div>
 
     <div data-role="footer">
 
     </div>
+
+    <div data-role="popup" id="popupSaveNewPassword" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+        <div data-role="header" data-theme="a">
+            <h1>Zapisać zmiany?</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <h3 class="ui-title">Czy na pewno chcesz zmienić hasło?</h3>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Anuluj</a>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Zapisz zmiany</a>
+        </div>
+    </div>
+
+
 </div>
 
 <!-- Moje grupy -->
@@ -240,13 +264,46 @@
 
     </div>
 
+    <div data-role="footer" class="footer">
+        <div class="touch" data-icon="false" data-split-icon="delete">
+            <textarea cols="40" rows="8" placeholder="Napisz wiadomość"> </textarea>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- Lista znajomych -->
+
+
+<div data-role="page" id="friendsList">
+    <div data-role="header">
+        <a href="#editAccount" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+        <h1>Nazwa grupy</h1>
+        <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+
+        <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+            <li>
+                <a href="#czat">
+                    <p>Imię</p>
+                    <p>Nazwisko</p>
+                    <p>ID</p>
+                </a>
+                <a href="#" class="delete">Delete</a>
+            </li>
+        </ul>
+
+    </div>
+
     <div data-role="footer">
 
     </div>
 
-
-
 </div>
+
 
 </body>
 </html>
