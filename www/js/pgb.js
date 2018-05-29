@@ -1,6 +1,6 @@
 const app = angular.module('MeetApp', []);
 
-app.service('storageService', ()=> {
+app.service('storageService', function () {
     this.db = firebase.database();
 
     this.addUserIfEmpty = async (user, callback) => {
@@ -17,8 +17,8 @@ app.service('storageService', ()=> {
                     if (data.val() === null) {
                         usersRef.set(
                             user
-                        ).then(()=>{
-                          callback();
+                        ).then(() => {
+                            callback();
                         });
                     } else {
                         throw "User already exists!"
@@ -164,8 +164,7 @@ app.service('storageService', ()=> {
     };
 
     this.addMessageToGroup = async (groupId, messageId) => {
-        let groupsRef = await this.db.ref().child('groups/' + groupId + "/chat/").push(messageId);
-
+        await this.db.ref().child('groups/' + groupId + "/chat/").push(messageId);
     };
 
     this.observeGroup = (groupId, task) => {
@@ -180,7 +179,6 @@ app.service('storageService', ()=> {
 
     this.observeUserGroups = (mail, task) => {
         this.db.ref().child("users/" + prepareKey(mail) + "/groups/").on("child_added", (child) => {
-            print("hello");
             task(child)
         })
     }
@@ -189,14 +187,14 @@ app.service('storageService', ()=> {
 app.controller('controller', function ($scope, storageService) {
     $scope.currentUser = new User();
     $scope.otherUser = new User();
-    $scope.currentGroup = new Group();
+    $scope.currentGroup = null;
     $scope.currentEvent = new Event();
     $scope.currentMessage = new Message();
     $scope.currentChat = [];
 
     $scope.addUser = () => {
         try {
-            storageService.addUserIfEmpty($scope.currentUser, ()=> {
+            storageService.addUserIfEmpty($scope.currentUser, () => {
                 $scope.loadUser();
             })
         } catch (e) {
@@ -206,11 +204,11 @@ app.controller('controller', function ($scope, storageService) {
 
     $scope.addGroup = () => {
         storageService.addGroupAndGetKey($scope.currentGroup).then((key) => {
-                // $scope.currentUser.groups.push(key);
-                // storageService.updateUser($scope.currentUser);
-                storageService.addUserToGroup($scope.currentUser.mail, key);
-                storageService.assignGroupToUser($scope.currentUser.mail, key);
-                $scope.changeGroup(key);
+                storageService.addUserToGroup($scope.currentUser.mail, key).then(()=>{
+                    storageService.assignGroupToUser($scope.currentUser.mail, key).then(()=>{
+                        $scope.changeGroup(key);
+                    });
+                });
             }
         ).then(() => {
             $scope.$apply()
@@ -239,13 +237,10 @@ app.controller('controller', function ($scope, storageService) {
         let key = prepareKey($scope.currentUser.mail);
         storageService.db.ref().child("users/" + key).once("value", async (data) => {
             $scope.currentUser = data.val();
-            print($scope.currentUser.mail);
             storageService.observeUserGroups($scope.currentUser.mail, (child) => {
-                print($scope.currentUser.mail);
-                if($scope.currentUser.groups === null || $scope.currentUser.groups===undefined){
-                    $scope.currentUser.groups=[];
+                if ($scope.currentUser.groups === null || $scope.currentUser.groups === undefined) {
+                    $scope.currentUser.groups = [];
                 }
-                print(child.val());
                 $scope.currentUser.groups.push(child.val());
                 if (($scope.currentGroup === {} || $scope.currentGroup === null)) {
                     let key = $scope.currentUser.groups[0];
@@ -257,25 +252,21 @@ app.controller('controller', function ($scope, storageService) {
 
     $scope.changeGroup = (groupId) => {
 
-        if($scope.currentGroup.key !== null || $scope.currentGroup.key !==undefined){
+        if ($scope.currentGroup !== null && ($scope.currentGroup.key !== null || $scope.currentGroup.key !== undefined)) {
             storageService.unobserveGroup($scope.currentGroup.key);
         }
-
         storageService.db.ref().child("groups/" + groupId).once("value", async (data) => {
-            $scope.currentGroup = data.val();
+            data = data.val();
+            $scope.currentGroup = new Group(data.name);
             $scope.currentGroup.key = groupId;
-
             storageService.observeGroup(groupId, (child) => {
-                if ($scope.currentGroup.chat === null || $scope.currentGroup.chat === undefined) {
-                    $scope.currentGroup.chat = []
-                }
                 $scope.currentGroup.chat.push(child.val());
                 storageService.db.ref().child("messages/" + child.val()).once("value", (data) => {
-                    $scope.currentChat.push(data.val())
+                    $scope.currentChat.push(data.val());
+                    $scope.$apply();
                 });
             })
         });
-        print($scope.currentGroup);
     }
 });
 
