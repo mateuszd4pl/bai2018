@@ -12,19 +12,33 @@
     <script src="js/firebase.js"></script>
 </head>
 <body ng-app="MeetApp" ng-controller="controller" onload="init()">
-<h1>{{currentUser.name}} {{currentGroup.name}}</h1>
-<input ng-model="currentUser.name">
-<input ng-model="currentUser.lastname">
-<input ng-model="currentUser.mail">
-<input ng-model="currentUser.phone">
+<h1>Hi, {{currentUser.name}}! Current group:{{currentGroup.name}}</h1>
+<label>Name:
+    <input ng-model="currentUser.name">
+</label>
+<label>Lastname:
+    <input ng-model="currentUser.lastname">
+</label>
+<label>Mail:
+    <input ng-model="currentUser.mail">
+</label>
+<label>Phone:
+    <input ng-model="currentUser.phone">
+</label>
 <button ng-click="addUser()">login</button>
-<input ng-model="currentGroup.name">
+<label>Group name:
+    <input ng-model="currentGroup.name">
+</label>
 <button ng-click="addGroup()">add group</button>
-<input ng-model="otherUser.mail">
+<label>Other user mail:
+    <input ng-model="otherUser.mail">
+</label>
 <button ng-click="addUserToGroup(otherUser)">Add user to current group</button>
-<input ng-model="currentMessage.content">
+<label>Message:
+    <input ng-model="currentMessage.content">
+</label>
 <button ng-click="sendMessage()">Wyślij</button>
-<div ng-repeat="x in currentChat">{{x.author}} napisał: {{x.content}}<hr></div>
+<div ng-repeat="x in currentGroup.chat">{{x.author}} napisał: {{x.content}}<hr></div>
 </body>
 <script>
     const config = {
