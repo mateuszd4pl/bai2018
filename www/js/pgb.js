@@ -247,7 +247,7 @@ app.controller('controller', function ($scope, storageService) {
             }
         };
 
-        $scope.addGroup = () => {
+        $scope.addGroupAndAssignUser = () => {
             storageService.addGroupAndGetKey($scope.otherGroup).then((key) => {
                 storageService.addUserToGroup($scope.currentUser.mail, key).then(() => {
                     storageService.assignGroupToUser($scope.currentUser.mail, key).then(() => {
@@ -259,16 +259,16 @@ app.controller('controller', function ($scope, storageService) {
             });
         };
 
-        $scope.addUserToGroup = (user) => {
-            storageService.addUserToGroup(user.mail, $scope.currentGroup.key);
-            storageService.assignGroupToUser(user.mail, $scope.currentGroup.key);
+        $scope.addUserToGroup = async (user, group) => {
+            storageService.addUserToGroup(user.mail, group.key);
+            storageService.assignGroupToUser(user.mail, group.key);
         };
 
         $scope.sendMessage = () => {
             let date = new Date();
 
             $scope.currentMessage.time = date.getTime();
-            $scope.currentMessage.author = $scope.currentUser.name;
+            $scope.currentMessage.author = $scope.currentUser.mail;
 
             storageService.addMessage($scope.currentMessage).then((key) => {
                 storageService.addMessageToGroup($scope.currentGroup.key, key)
@@ -282,6 +282,7 @@ app.controller('controller', function ($scope, storageService) {
             storageService.db.ref().child("users/" + key).once("value", async (data) => {
                 $scope.currentUser = new User(data.val().mail, data.val().name, data.val().lastname, data.val().phone);
                 $scope.observeUser(user.mail);
+                $scope.$apply()
             });
         };
 
@@ -325,7 +326,10 @@ app.controller('controller', function ($scope, storageService) {
             storageService.observeUserGroups(mail, (child) => {
                 // $scope.currentUser.groups.push(child.val());
                 $scope.loadGroup(child.val()).then(()=>{
-                    $scope.currentUser.groups.push($scope.otherGroup);
+                    let element={};
+                    Object.assign(element, $scope.otherGroup);
+                    $scope.currentUser.groups.push(element);
+                    $scope.otherGroup=new Group();
                     $scope.$apply();
                 }).then(()=>{
                     if (($scope.currentGroup === {} || $scope.currentGroup === null)) {
@@ -371,6 +375,10 @@ app.controller('controller', function ($scope, storageService) {
             $scope.otherGroup = new Group();
             $scope.$apply();
         };
+
+        $scope.clearOtherUser = ()=>{
+            $scope.otherUser = new User();
+        }
     }
 );
 

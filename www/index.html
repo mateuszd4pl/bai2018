@@ -12,10 +12,11 @@
     <script src="js/firebase.js"></script>
 </head>
 <body ng-app="MeetApp" ng-controller="controller" onload="init()">
+Aktualna grupa: {{currentGroup}}
 <input ng-model="otherUser.mail">
 <button ng-click="addUser()">Dodaj usera</button>
 <input ng-model="otherGroup.name">
-<button ng-click="addGroup()">Dodaj grupe</button>
+<button ng-click="addGroupAndAssignUser()">Dodaj grupe</button>
 <table>
     <thead>
     <tr>
@@ -33,10 +34,19 @@
     </thead>
     <tbody>
         <tr ng-repeat="group in currentUser.groups">
-            <td></td>
+            <td>{{group.name}}</td>
+            <td>{{group.key}}</td>
+            <td>{{group.members.length}}</td>
+            <td>{{group.events.length}}</td>
+            <td>{{group.chat.length}}</td>
+            <td><button ng-click="changeGroup(group.key)">Wybierz</button></td>
+            <td><input ng-model="otherUser.mail"><button ng-click="addUserToGroup(otherUser, group).then(clearOtherUser())">Dodaj</button></td>
         </tr>
     </tbody>
 </table>
+<input ng-model="currentMessage.content">
+<button ng-click="sendMessage()">Wyslij</button>
+<div ng-repeat="message in currentGroup.chat">{{message.author}} napisał[{{message.time}}]: {{message.content}}<hr></div>
 </body>
 <script>
     const config = {
