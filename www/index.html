@@ -261,13 +261,19 @@
     </div>
 
     <div role="main" class="ui-content">
-
+        <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+            <li>
+                <a>
+                    <h3>Imie</h3>
+                    <p>wiadomosc</p>
+                </a>
+            </li>
+        </ul>
     </div>
 
-    <div data-role="footer" class="footer">
-        <div class="touch" data-icon="false" data-split-icon="delete">
-            <textarea cols="40" rows="8" placeholder="Napisz wiadomość"> </textarea>
-        </div>
+    <div data-role="footer" class="footer" style="min-height: 85px">
+            <a ><textarea cols="40" rows="8" placeholder="Napisz wiadomość"> </textarea></a>
+            <a href="#" rows="8">Wyślij</a>
     </div>
 
 
@@ -287,7 +293,7 @@
 
         <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
             <li>
-                <a href="#czat">
+                <a href="#">
                     <p>Imię</p>
                     <p>Nazwisko</p>
                     <p>ID</p>
