@@ -324,6 +324,7 @@ app.controller('controller', function ($scope, storageService) {
             storageService.observeUserFriends(mail, (child) => {
                 storageService.db.ref().child("users/" + child.val()).once("value", (data) => {
                     $scope.currentUser.friends.push(data.val())
+                    $scope.$apply();
                 });
             });
         };
