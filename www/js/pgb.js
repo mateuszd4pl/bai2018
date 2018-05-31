@@ -230,13 +230,17 @@ app.controller('controller', function ($scope, storageService) {
         $scope.currentUser = new User();
         $scope.otherUser = new User();
         $scope.currentGroup = null;
+        $scope.otherGroup = new Group();
         $scope.currentEvent = new Event();
         $scope.currentMessage = new Message();
 
         $scope.addUser = () => {
             try {
-                storageService.addUserIfEmpty($scope.currentUser, () => {
-                    $scope.loadUser();
+                storageService.addUserIfEmpty($scope.otherUser, () => {
+                    $scope.loadUser($scope.otherUser).then(()=>{
+                        $scope.otherUser = new User();
+                        $scope.$apply();
+                    });
                 })
             } catch (e) {
                 print(e);
@@ -244,7 +248,7 @@ app.controller('controller', function ($scope, storageService) {
         };
 
         $scope.addGroup = () => {
-            storageService.addGroupAndGetKey($scope.currentGroup).then((key) => {
+            storageService.addGroupAndGetKey($scope.otherGroup).then((key) => {
                 storageService.addUserToGroup($scope.currentUser.mail, key).then(() => {
                     storageService.assignGroupToUser($scope.currentUser.mail, key).then(() => {
                         $scope.changeGroup(key);
@@ -273,24 +277,28 @@ app.controller('controller', function ($scope, storageService) {
             })
         };
 
-        $scope.loadUser = async () => {
-            let key = prepareKey($scope.currentUser.mail);
+        $scope.loadUser = async (user) => {
+            let key = prepareKey(user.mail);
             storageService.db.ref().child("users/" + key).once("value", async (data) => {
-                $scope.currentUser = data.val();
-                $scope.observeUser($scope.currentUser.mail);
+                $scope.currentUser = new User(data.val().mail, data.val().name, data.val().lastname, data.val().phone);
+                $scope.observeUser(user.mail);
             });
         };
 
-        $scope.changeGroup = (groupId) => {
+        $scope.changeGroup = async (groupId) => {
             $scope.unobserveCurrentGroup();
-
-            storageService.db.ref().child("groups/" + groupId).once("value", async (data) => {
-                data = data.val();
-                $scope.currentGroup = new Group(data.name);
-                $scope.currentGroup.key = groupId;
-
-                $scope.observeGroup(groupId);
+            $scope.loadGroup(groupId).then(()=>{
+                $scope.setGroups();
             });
+            $scope.observeGroup(groupId);
+        };
+
+        $scope.loadGroup = async (groupId)=>{
+             await storageService.db.ref().child("groups/" + groupId).once("value", (data) => {
+                data = data.val();
+                $scope.otherGroup = new Group(data.name);
+                $scope.otherGroup.key = groupId;
+            })
         };
 
         $scope.loadEvent = (eventId) => {
@@ -312,13 +320,19 @@ app.controller('controller', function ($scope, storageService) {
                 storageService.unobserveGroupEvents($scope.currentGroup.key);
             }
         };
+
         $scope.observeUser = (mail) => {
             storageService.observeUserGroups(mail, (child) => {
-                $scope.currentUser.groups.push(child.val());
-                if (($scope.currentGroup === {} || $scope.currentGroup === null)) {
-                    let key = $scope.currentUser.groups[0];
-                    $scope.changeGroup(key);
-                }
+                // $scope.currentUser.groups.push(child.val());
+                $scope.loadGroup(child.val()).then(()=>{
+                    $scope.currentUser.groups.push($scope.otherGroup);
+                    $scope.$apply();
+                }).then(()=>{
+                    if (($scope.currentGroup === {} || $scope.currentGroup === null)) {
+                        let key = $scope.currentUser.groups[0].key;
+                        $scope.changeGroup(key);
+                    }
+                });
             });
 
             storageService.observeUserFriends(mail, (child) => {
@@ -350,7 +364,13 @@ app.controller('controller', function ($scope, storageService) {
                     $scope.$apply();
                 })
             })
-        }
+        };
+
+        $scope.setGroups = ()=>{
+            $scope.currentGroup = $scope.otherGroup;
+            $scope.otherGroup = new Group();
+            $scope.$apply();
+        };
     }
 );
 

@@ -12,37 +12,31 @@
     <script src="js/firebase.js"></script>
 </head>
 <body ng-app="MeetApp" ng-controller="controller" onload="init()">
-<h1>Hi, {{currentUser.name}}! Current group:{{currentGroup.name}} All groups:{{currentUser.groups}} Events: {{currentGroup.events}} Current event: {{currentEvent}}</h1>
-<label>Name:
-    <input ng-model="currentUser.name">
-</label>
-<label>Lastname:
-    <input ng-model="currentUser.lastname">
-</label>
-<label>Mail:
-    <input ng-model="currentUser.mail">
-</label>
-<label>Phone:
-    <input ng-model="currentUser.phone">
-</label>
-<button ng-click="addUser()">login</button>
-<label>Group name:
-    <input ng-model="currentGroup.name">
-</label>
-<button ng-click="addGroup()">add group</button>
-<label>Other user mail:
-    <input ng-model="otherUser.mail">
-</label>
-<button ng-click="addUserToGroup(otherUser)">Add user to current group</button>
-<label>Message:
-    <input ng-model="currentMessage.content">
-</label>
-<input ng-model="currentEvent.name">
-<button ng-click="">Add event</button>
 <input ng-model="otherUser.mail">
-<button ng-click="">Add participant to event</button>
-<button ng-click="sendMessage()">Wyślij</button>
-<div ng-repeat="x in currentGroup.chat">{{x.author}} napisał: {{x.content}}<hr></div>
+<button ng-click="addUser()">Dodaj usera</button>
+<input ng-model="otherGroup.name">
+<button ng-click="addGroup()">Dodaj grupe</button>
+<table>
+    <thead>
+    <tr>
+        Grupy użytkownika {{currentUser.mail}}
+    </tr>
+    <tr>
+        <th>Nazwa grupy</th>
+        <th>ID grupy</th>
+        <th>L. członków</th>
+        <th>L. wiadomości</th>
+        <th>L. wydarzem</th>
+        <th>Wybierz grupę</th>
+        <th>Dodaj członka</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="group in currentUser.groups">
+            <td></td>
+        </tr>
+    </tbody>
+</table>
 </body>
 <script>
     const config = {
