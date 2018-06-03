@@ -255,7 +255,7 @@
 
 <div data-role="page" id="czat">
     <div data-role="header">
-        <a href="#editAccount" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+        <a href="#barsMenuGroup" data-rel="popup" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext"></a>
         <h1>Nazwa grupy</h1>
         <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
     </div>
@@ -276,6 +276,13 @@
             <a href="#" rows="8">Wyślij</a>
     </div>
 
+    <div data-role="popup" id="barsMenuGroup" data-theme="a" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
+            <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
+        </ul>
+    </div>
 
 </div>
 
