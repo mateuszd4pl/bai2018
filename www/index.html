@@ -14,9 +14,7 @@
 
 
     <link rel="stylesheet" href="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="https://rawgithub.com/jquery/jquery-ui/1-10-stable/ui/jquery.ui.datepicker.js"></script>
-    <script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
     <script src="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.js"></script>
 </head>
 <body>
@@ -415,7 +413,7 @@
     </div>
 
     <div role="main" class="ui-content">
-        <button onclick="datePicker.show(options, onSuccess, onError)">Click me</button>
+        <input type="text" id="date-input" data-inline="true" data-role="date">
     </div>
 
     <div data-role="footer">
