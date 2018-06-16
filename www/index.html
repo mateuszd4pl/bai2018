@@ -10,6 +10,14 @@
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
     <script src="js/script.js"></script>
+
+
+
+    <link rel="stylesheet" href="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://rawgithub.com/jquery/jquery-ui/1-10-stable/ui/jquery.ui.datepicker.js"></script>
+    <script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+    <script src="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.js"></script>
 </head>
 <body>
 
@@ -354,6 +362,7 @@
             <li data-role="list-divider"></li>
             <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
             <li><a href="#czat" data-transition="slidedown">Czat grupowy</a></li>
+            <li><a href="#makeEventView" data-transition="slidedown">Utwórz wydarzenie</a></li>
             <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
         </ul>
     </div>
@@ -383,6 +392,42 @@
             <li data-role="list-divider"></li>
             <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
             <li><a href="#czat" data-transition="slidedown">Czat grupowy</a></li>
+            <li><a href="#eventsView" data-transition="slidedown">Widok wydarzeń</a></li>
+            <li><a href="#makeEventView" data-transition="slidedown">Utwórz wydarzenie</a></li>
+            <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
+        </ul>
+    </div>
+
+</div>
+
+
+</body>
+</html>
+
+<!-- Widok tworzenia wydarzenia -->
+
+
+<div data-role="page" id="makeEventView">
+    <div data-role="header">
+        <a href="#barsMenuMakeEvent" data-rel="popup" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext"></a>
+        <h1>Utwórz wydarzenie</h1>
+        <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <button onclick="datePicker.show(options, onSuccess, onError)">Click me</button>
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+
+    <div data-role="popup" id="barsMenuMakeEvent" data-theme="a" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
+            <li><a href="#czat" data-transition="slidedown">Czat grupowy</a></li>
+            <li><a href="#eventsView" data-transition="slidedown">Widok wydarzeń</a></li>
             <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
         </ul>
     </div>
