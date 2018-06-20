@@ -104,7 +104,7 @@
     <div role="main" class="ui-content">
         <div style="text-align: center">
             <div class="center">
-                <h3>Witaj, ...</h3>
+                <h2>Witaj ...</h2>
                 <a href="#editPerson" class="ui-btn" data-transition="flip">Edytuj profil</a>
                 <br>
                 <a href="#editPassword" class="ui-btn" data-transition="flip">Zmień hasło</a>
@@ -269,7 +269,7 @@
 
     <div role="main" class="ui-content">
         <p>
-        <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+        <ul id="conversation" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
             <li>
                 <a>
                     <h3>Imie</h3>
@@ -308,7 +308,7 @@
 
     <div role="main" class="ui-content">
 
-        <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+        <ul id="listFriends" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
             <li>
                 <a href="#">
                     <p>Imię</p>
@@ -340,7 +340,7 @@
 
     <div role="main" class="ui-content">
         <p>
-            <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+            <ul id="eventsList" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
                 <li>
                     <a href="#eventView">
                         <h3>Nazwa wydarzenia</h3>
@@ -408,12 +408,41 @@
 <div data-role="page" id="makeEventView">
     <div data-role="header">
         <a href="#barsMenuMakeEvent" data-rel="popup" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext"></a>
-        <h1>Utwórz wydarzenie</h1>
+        <h1>Nowe wydarzenia</h1>
         <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
     </div>
 
     <div role="main" class="ui-content">
-        <input type="text" id="date-input" data-inline="true" data-role="date">
+        <h3>Data wydarzenia</h3>
+        <form>
+            <input type="text" id="date-input" data-inline="true" data-role="date">
+            <h3>Godzina rozpoczęcia wydarzenia</h3>
+            <input type="time" data-clear-btn="false" name="time-1" id="eventTime" value="">
+            <a href="#popupAddFriendEvent" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Dodaj uczestnika</a>
+        </form>
+        <h3>Lista uczestników:</h3>
+        <div>
+            <ul id="eventFriends" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+                <li>
+                    <a>
+                        <p>Imię</p>
+                        <p>Nazwisko</p>
+                        <p>ID</p>
+                    </a>
+                    <a href="#" class="delete">Delete</a>
+                </li>
+                <li>
+                    <a>
+                        <p>Imię</p>
+                        <p>Nazwisko</p>
+                        <p>ID</p>
+                    </a>
+                    <a href="#" class="delete">Delete</a>
+                </li>
+            </ul>
+        </div>
+        <h3> </h3>
+        <input type="submit" value="Utwórz wydarzenie">
     </div>
 
     <div data-role="footer">
@@ -428,6 +457,19 @@
             <li><a href="#eventsView" data-transition="slidedown">Widok wydarzeń</a></li>
             <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
         </ul>
+    </div>
+
+
+    <div data-role="popup" id="popupAddFriendEvent" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
+        <form>
+            <div style="padding:10px 50px;">
+                <h3>Dodaj znajomego</h3>
+                <input name="user" id="emailFriendEvent" value="" placeholder="adres email" data-theme="a" type="email">
+                <h3>lub</h3>
+                <input name="user" id="idFriendEvent" value="" placeholder="ID" data-theme="a" type="number">
+                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Dodaj</button>
+            </div>
+        </form>
     </div>
 
 </div>
