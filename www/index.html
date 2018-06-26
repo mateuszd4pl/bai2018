@@ -25,9 +25,6 @@ Aktualna grupa: {{currentGroup}}
     <tr>
         <th>Nazwa grupy</th>
         <th>ID grupy</th>
-        <th>L. członków</th>
-        <th>L. wiadomości</th>
-        <th>L. wydarzem</th>
         <th>Wybierz grupę</th>
         <th>Dodaj członka</th>
     </tr>
@@ -36,9 +33,6 @@ Aktualna grupa: {{currentGroup}}
         <tr ng-repeat="group in currentUser.groups">
             <td>{{group.name}}</td>
             <td>{{group.key}}</td>
-            <td>{{group.members.length}}</td>
-            <td>{{group.events.length}}</td>
-            <td>{{group.chat.length}}</td>
             <td><button ng-click="changeGroup(group.key)">Wybierz</button></td>
             <td><input ng-model="otherUser.mail"><button ng-click="addUserToGroup(otherUser, group).then(clearOtherUser())">Dodaj</button></td>
         </tr>

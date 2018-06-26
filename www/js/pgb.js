@@ -278,6 +278,10 @@ app.controller('controller', function ($scope, storageService) {
         };
 
         $scope.loadUser = async (user) => {
+            if($scope.currentUser.mail!==user.mail){
+                $scope.currentGroup = null;
+            }
+
             let key = prepareKey(user.mail);
             storageService.db.ref().child("users/" + key).once("value", async (data) => {
                 $scope.currentUser = new User(data.val().mail, data.val().name, data.val().lastname, data.val().phone);
@@ -341,7 +345,7 @@ app.controller('controller', function ($scope, storageService) {
 
             storageService.observeUserFriends(mail, (child) => {
                 storageService.db.ref().child("users/" + child.val()).once("value", (data) => {
-                    $scope.currentUser.friends.push(data.val())
+                    $scope.currentUser.friends.push(data.val());
                     $scope.$apply();
                 });
             });
