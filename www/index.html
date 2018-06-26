@@ -20,12 +20,14 @@
 <body>
 
 <!-- Logowanie -->
-<!--
+
 <div data-role="page" id="mainPage">
     <div style="text-align: center">
+        <div><a href="#mainGroup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="slide">Przejdz dalej bez logowania - usunąć</a></div>
         <div class="center">
             <div class="ui-grid-solo"><a href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Zaloguj się</a></div>
             <div class="ui-grid-solo"><a href="#popupJoin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Zarejestruj się</a></div>
+
         </div>
     </div>
 
@@ -34,12 +36,14 @@
     <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
         <form>
             <div style="padding:10px 20px;">
-                <h3>Please sign in</h3>
-                <label for="un" class="ui-hidden-accessible">Username:</label>
-                <input name="user" id="un" value="" placeholder="username" data-theme="a" type="text">
-                <label for="pw" class="ui-hidden-accessible">Password:</label>
-                <input name="pass" id="pw" value="" placeholder="password" data-theme="a" type="password">
-                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Sign in</button>
+                <h3>Zaloguj się</h3>
+                <label for="un" class="ui-hidden-accessible">Nazwa użytkownika:</label>
+                <input name="user" id="un" value="" placeholder="Nazwa użytkownika" data-theme="a" type="text">
+                <label for="passw" class="ui-hidden-accessible">Hasło</label>
+                <input name="pass" id="passw" value="" placeholder="Hasło" data-theme="a" type="password">
+                <button href="#"  class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Zaloguj</button>
+                <h3>lub</h3>
+                <button href="#" class="ui-btn ui-corner-all ui-btn-b">Zaloguj poprzez Facebook</button>
             </div>
         </form>
     </div>
@@ -48,21 +52,22 @@
     <div data-role="popup" id="popupJoin" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
         <form>
             <div style="padding:10px 50px;">
-                <h3>Please join us</h3>
+                <h3>Zarejestruj się</h3>
                 <label for="unJoin" class="ui-hidden-accessible">Username:</label>
-                <input name="user" id="unJoin" value="" placeholder="username" data-theme="a" type="text">
-                <label for="pwJoin" class="ui-hidden-accessible">Password:</label>
-                <input name="pass" id="pwJoin" value="" placeholder="password" data-theme="a" type="password">
-                <label for="repwJoin" class="ui-hidden-accessible">Password:</label>
-                <input name="pass" id="repwJoin" value="" placeholder="password" data-theme="a" type="password">
+                <input name="user" id="usernameJoin" value="" placeholder="Nazwa użytkownika" data-theme="a" type="text">
+                <label for="passwordJoin" class="ui-hidden-accessible">Password:</label>
+                <input name="pass" id="passwordJoin" value="" placeholder="Hasło" data-theme="a" type="password">
+                <label for="repasswordJoin" class="ui-hidden-accessible">Password:</label>
+                <input name="pass" id="repasswordJoin" value="" placeholder="Powtórz hasło" data-theme="a" type="password">
                 <label for="nrJoin" class="ui-hidden-accessible">Username:</label>
-                <input name="user" id="nrJoin" value="" placeholder="Phone number" data-theme="a" type="number">
-                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Join</button>
+                <input name="userEmail" id="emailJoin" value="" placeholder="Adres email" data-theme="a" type="email">
+                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Zarejestruj</button>
+                <h3>lub</h3>
+                <button href="#"  class="ui-btn ui-corner-all ui-btn-b">Zarejestruj poprzez Facebook</button>
             </div>
         </form>
     </div>
 </div>
--->
 
 <!-- Edycja profilu -->
 <div data-role="page" id="editPerson">
