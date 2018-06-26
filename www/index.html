@@ -9,16 +9,25 @@
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/script.js"></script>
+
+
+
+    <link rel="stylesheet" href="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.css" />
+    <script src="https://rawgithub.com/jquery/jquery-ui/1-10-stable/ui/jquery.ui.datepicker.js"></script>
+    <script src="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.js"></script>
 </head>
 <body>
 
 <!-- Logowanie -->
-<!--
+
 <div data-role="page" id="mainPage">
     <div style="text-align: center">
+        <div><a href="#mainGroup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="slide">Przejdz dalej bez logowania - usunąć</a></div>
         <div class="center">
             <div class="ui-grid-solo"><a href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Zaloguj się</a></div>
             <div class="ui-grid-solo"><a href="#popupJoin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Zarejestruj się</a></div>
+
         </div>
     </div>
 
@@ -27,12 +36,14 @@
     <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
         <form>
             <div style="padding:10px 20px;">
-                <h3>Please sign in</h3>
-                <label for="un" class="ui-hidden-accessible">Username:</label>
-                <input name="user" id="un" value="" placeholder="username" data-theme="a" type="text">
-                <label for="pw" class="ui-hidden-accessible">Password:</label>
-                <input name="pass" id="pw" value="" placeholder="password" data-theme="a" type="password">
-                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Sign in</button>
+                <h3>Zaloguj się</h3>
+                <label for="un" class="ui-hidden-accessible">Nazwa użytkownika:</label>
+                <input name="user" id="un" value="" placeholder="Nazwa użytkownika" data-theme="a" type="text">
+                <label for="passw" class="ui-hidden-accessible">Hasło</label>
+                <input name="pass" id="passw" value="" placeholder="Hasło" data-theme="a" type="password">
+                <button href="#"  class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Zaloguj</button>
+                <h3>lub</h3>
+                <button href="#" class="ui-btn ui-corner-all ui-btn-b">Zaloguj poprzez Facebook</button>
             </div>
         </form>
     </div>
@@ -41,21 +52,22 @@
     <div data-role="popup" id="popupJoin" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
         <form>
             <div style="padding:10px 50px;">
-                <h3>Please join us</h3>
+                <h3>Zarejestruj się</h3>
                 <label for="unJoin" class="ui-hidden-accessible">Username:</label>
-                <input name="user" id="unJoin" value="" placeholder="username" data-theme="a" type="text">
-                <label for="pwJoin" class="ui-hidden-accessible">Password:</label>
-                <input name="pass" id="pwJoin" value="" placeholder="password" data-theme="a" type="password">
-                <label for="repwJoin" class="ui-hidden-accessible">Password:</label>
-                <input name="pass" id="repwJoin" value="" placeholder="password" data-theme="a" type="password">
+                <input name="user" id="usernameJoin" value="" placeholder="Nazwa użytkownika" data-theme="a" type="text">
+                <label for="passwordJoin" class="ui-hidden-accessible">Password:</label>
+                <input name="pass" id="passwordJoin" value="" placeholder="Hasło" data-theme="a" type="password">
+                <label for="repasswordJoin" class="ui-hidden-accessible">Password:</label>
+                <input name="pass" id="repasswordJoin" value="" placeholder="Powtórz hasło" data-theme="a" type="password">
                 <label for="nrJoin" class="ui-hidden-accessible">Username:</label>
-                <input name="user" id="nrJoin" value="" placeholder="Phone number" data-theme="a" type="number">
-                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Join</button>
+                <input name="userEmail" id="emailJoin" value="" placeholder="Adres email" data-theme="a" type="email">
+                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Zarejestruj</button>
+                <h3>lub</h3>
+                <button href="#"  class="ui-btn ui-corner-all ui-btn-b">Zarejestruj poprzez Facebook</button>
             </div>
         </form>
     </div>
 </div>
--->
 
 <!-- Edycja profilu -->
 <div data-role="page" id="editPerson">
@@ -70,28 +82,55 @@
         <input id="editNazwisko" value="" placeholder="Nazwisko" data-theme="a" type="text">
         <input id="editNumer" value="" placeholder="Numer telefonu" data-theme="a" type="number">
         <input id="pw" value="" placeholder="Hasło" data-theme="a" type="password">
-        <button type="submit" class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit">Zapisz zmiany</button>
+        <a href="#popupSaveNewDate" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit">Zapisz zmiany</a>
+    </div>
+
+    <div data-role="popup" id="popupSaveNewDate" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+        <div data-role="header" data-theme="a">
+            <h1>Zapisać zmiany?</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <h3 class="ui-title">Czy na pewno chcesz zmienić dane?</h3>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Anuluj</a>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Zapisz zmiany</a>
+        </div>
     </div>
 
 </div>
 
-<!-- Ustawienia-->
+<!-- Ustawienia - mój profil -->
 <div data-role="page" id="editAccount">
     <div data-role="header">
         <a href="#" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
-        <h1>Ustawienia</h1>
+        <h1>Mój profil</h1>
         <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
     </div>
 
     <div role="main" class="ui-content">
         <div style="text-align: center">
             <div class="center">
-                <h3>Witaj, ...</h3>
+                <h2>Witaj ...</h2>
                 <a href="#editPerson" class="ui-btn" data-transition="flip">Edytuj profil</a>
                 <br>
                 <a href="#editPassword" class="ui-btn" data-transition="flip">Zmień hasło</a>
+                <br>
+                <a href="#popupAddFriend" class="ui-btn" data-transition="pop" data-rel="popup">Dodaj znajomego</a>
+                <br>
+                <a href="#friendsList" class="ui-btn" data-transition="flip">Lista znajomych</a>
             </div>
         </div>
+    </div>
+
+    <div data-role="popup" id="popupAddFriend" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
+        <form>
+            <div style="padding:10px 50px;">
+                <h3>Dodaj znajomego</h3>
+                <input name="user" id="unJoin" value="" placeholder="adres email" data-theme="a" type="email">
+                <h3>lub</h3>
+                <input name="user" id="nrJoin" value="" placeholder="ID" data-theme="a" type="number">
+                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Dodaj</button>
+            </div>
+        </form>
     </div>
 
 </div>
@@ -108,12 +147,25 @@
         <input name="pass" id="pw1" value="" placeholder="Aktualne hasło" data-theme="a" type="password">
         <input name="pass" id="newPw" value="" placeholder="Nowe hasło" data-theme="a" type="password">
         <input name="pass" id="reNewPw" value="" placeholder="Powtórz hasło" data-theme="a" type="password">
-        <button type="submit" class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit">Zapisz zmiany</button>
+        <a href="#popupSaveNewPassword" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit">Zapisz zmiany</a>
     </div>
 
     <div data-role="footer">
 
     </div>
+
+    <div data-role="popup" id="popupSaveNewPassword" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+        <div data-role="header" data-theme="a">
+            <h1>Zapisać zmiany?</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <h3 class="ui-title">Czy na pewno chcesz zmienić hasło?</h3>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Anuluj</a>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Zapisz zmiany</a>
+        </div>
+    </div>
+
+
 </div>
 
 <!-- Moje grupy -->
@@ -125,7 +177,30 @@
     </div>
 
     <div role="main" class="ui-content">
-
+        <div role="main" class="ui-content">
+            <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+                <li>
+                    <a href="#czat">
+                        <h3>Nazwa grupy</h3>
+                        <p class="topic"><strong>aaaa</strong></p>
+                        <p>bbbbb</p>
+                        <p class="ui-li-aside"><strong>Ilość wydarzeń</strong></p>
+                    </a>
+                    <a href="#" class="delete">Delete</a>
+                </li>
+            </ul>
+        </div><!-- /content -->
+        <div id="confirm" class="ui-content" data-role="popup" data-theme="a">
+            <p id="question">Are you sure you want to delete:</p>
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <a id="yes" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Yes</a>
+                </div>
+                <div class="ui-block-b">
+                    <a id="cancel" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Cancel</a>
+                </div>
+            </div>
+        </div><!-- /popup -->
     </div>
 
     <div data-role="popup" id="addMenu" data-theme="b" data-overlay-theme="a">
@@ -147,7 +222,7 @@
     <div data-role="popup" id="barsMenu" data-theme="a" data-overlay-theme="a">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
             <li data-role="list-divider"></li>
-            <li><a href="#editAccount" data-transition="slidedown">Ustawienia</a></li>
+            <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
             <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
         </ul>
     </div>
@@ -187,7 +262,222 @@
 
 </div>
 
-<!-- Czat -->
+<!-- Widok grupy -->
+
+
+<div data-role="page" id="czat">
+    <div data-role="header">
+        <a href="#barsMenuGroup" data-rel="popup" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext"></a>
+        <h1>Nazwa grupy</h1>
+        <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <p>
+        <ul id="conversation" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+            <li>
+                <a>
+                    <h3>Imie</h3>
+                    <p>wiadomosc</p>
+                </a>
+            </li>
+        </ul>
+        </p>
+    </div>
+
+    <div data-role="footer" class="footer" style="min-height: 85px">
+            <a ><textarea cols="40" rows="8" placeholder="Napisz wiadomość"> </textarea></a>
+            <a href="#" rows="8">Wyślij</a>
+    </div>
+
+    <div data-role="popup" id="barsMenuGroup" data-theme="a" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
+            <li><a href="#eventsView" data-transition="slidedown">Wydarzenia</a></li>
+            <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
+        </ul>
+    </div>
+
+</div>
+
+<!-- Lista znajomych -->
+
+
+<div data-role="page" id="friendsList">
+    <div data-role="header">
+        <a href="#editAccount" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+        <h1>Nazwa grupy</h1>
+        <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+
+        <ul id="listFriends" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+            <li>
+                <a href="#">
+                    <p>Imię</p>
+                    <p>Nazwisko</p>
+                    <p>ID</p>
+                </a>
+                <a href="#" class="delete">Delete</a>
+            </li>
+        </ul>
+
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+
+</div>
+
+<!-- Widok wydarzeń -->
+
+
+<div data-role="page" id="eventsView">
+    <div data-role="header">
+        <a href="#barsMenuEvents" data-rel="popup" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext"></a>
+        <h1>Nazwa grupy</h1>
+        <h5>Wydarzenia</h5>
+        <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <p>
+            <ul id="eventsList" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+                <li>
+                    <a href="#eventView">
+                        <h3>Nazwa wydarzenia</h3>
+                        <p>aaaaa</p>
+                     </a>
+                </li>
+             </ul>
+        </p>
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+
+    <div data-role="popup" id="barsMenuEvents" data-theme="a" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
+            <li><a href="#czat" data-transition="slidedown">Czat grupowy</a></li>
+            <li><a href="#makeEventView" data-transition="slidedown">Utwórz wydarzenie</a></li>
+            <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
+        </ul>
+    </div>
+
+</div>
+
+<!-- Widok wydarzenia -->
+
+
+<div data-role="page" id="eventView">
+    <div data-role="header">
+        <a href="#barsMenuEvent" data-rel="popup" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext"></a>
+        <h1>Nazwa wydarzenia</h1>
+        <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+
+    <div data-role="popup" id="barsMenuEvent" data-theme="a" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
+            <li><a href="#czat" data-transition="slidedown">Czat grupowy</a></li>
+            <li><a href="#eventsView" data-transition="slidedown">Widok wydarzeń</a></li>
+            <li><a href="#makeEventView" data-transition="slidedown">Utwórz wydarzenie</a></li>
+            <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
+        </ul>
+    </div>
+
+</div>
+
+
+</body>
+</html>
+
+<!-- Widok tworzenia wydarzenia -->
+
+
+<div data-role="page" id="makeEventView">
+    <div data-role="header">
+        <a href="#barsMenuMakeEvent" data-rel="popup" data-transition="slide" class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext"></a>
+        <h1>Nowe wydarzenia</h1>
+        <a href="#mainGroup" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <h3>Data wydarzenia</h3>
+        <form>
+            <input type="text" id="date-input" data-inline="true" data-role="date">
+            <h3>Godzina rozpoczęcia wydarzenia</h3>
+            <input type="time" data-clear-btn="false" name="time-1" id="eventTime" value="">
+            <a href="#popupAddFriendEvent" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Dodaj uczestnika</a>
+        </form>
+        <h3>Lista uczestników:</h3>
+        <div>
+            <ul id="eventFriends" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+                <li>
+                    <a>
+                        <p>Imię</p>
+                        <p>Nazwisko</p>
+                        <p>ID</p>
+                    </a>
+                    <a href="#" class="delete">Delete</a>
+                </li>
+                <li>
+                    <a>
+                        <p>Imię</p>
+                        <p>Nazwisko</p>
+                        <p>ID</p>
+                    </a>
+                    <a href="#" class="delete">Delete</a>
+                </li>
+            </ul>
+        </div>
+        <h3> </h3>
+        <input type="submit" value="Utwórz wydarzenie">
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+
+    <div data-role="popup" id="barsMenuMakeEvent" data-theme="a" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
+            <li><a href="#czat" data-transition="slidedown">Czat grupowy</a></li>
+            <li><a href="#eventsView" data-transition="slidedown">Widok wydarzeń</a></li>
+            <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
+        </ul>
+    </div>
+
+
+    <div data-role="popup" id="popupAddFriendEvent" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
+        <form>
+            <div style="padding:10px 50px;">
+                <h3>Dodaj znajomego</h3>
+                <input name="user" id="emailFriendEvent" value="" placeholder="adres email" data-theme="a" type="email">
+                <h3>lub</h3>
+                <input name="user" id="idFriendEvent" value="" placeholder="ID" data-theme="a" type="number">
+                <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Dodaj</button>
+            </div>
+        </form>
+    </div>
+
+</div>
 
 
 </body>
