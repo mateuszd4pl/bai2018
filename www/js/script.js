@@ -3,3 +3,4 @@ $(document).on("pagecreate","#pageone",function(){
         window.location.href = "#mainGroup";
     });
 });
+
