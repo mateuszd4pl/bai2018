@@ -179,9 +179,9 @@
     <div role="main" class="ui-content">
         <div role="main" class="ui-content">
             <ul id="list" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
-                <li>
+                <li ng-repeat="group in currentUser.groups">
                     <a href="#czat">
-                        <h3>Nazwa grupy</h3>
+                        <h3>{{group.name}}</h3>
                         <p class="topic"><strong>aaaa</strong></p>
                         <p>bbbbb</p>
                         <p class="ui-li-aside"><strong>Ilość wydarzeń</strong></p>
