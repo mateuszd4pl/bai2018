@@ -39,10 +39,10 @@
             <div style="padding:10px 20px;">
                 <h3>Zaloguj się</h3>
                 <label for="un" class="ui-hidden-accessible">Nazwa użytkownika:</label>
-                <input name="user" id="un" value="" placeholder="Nazwa użytkownika" data-theme="a" type="text">
+                <input name="user" id="un" value="" placeholder="Nazwa użytkownika" data-theme="a" type="text" ng-model="otherUser.name">
                 <label for="passw" class="ui-hidden-accessible">Hasło</label>
-                <input name="pass" id="passw" value="" placeholder="Hasło" data-theme="a" type="password">
-                <button href="#"  class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Zaloguj</button>
+                <input name="pass" id="passw" value="" placeholder="Hasło" data-theme="a" type="password" ng-model="password">
+                <button href="#mainGroup"  class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" ng-click="loadUser($scope.otherUser)">Zaloguj</button>
                 <h3>lub</h3>
                 <button href="#" class="ui-btn ui-corner-all ui-btn-b">Zaloguj poprzez Facebook</button>
             </div>
@@ -55,9 +55,9 @@
             <div style="padding:10px 50px;">
                 <h3>Zarejestruj się</h3>
                 <label for="unJoin" class="ui-hidden-accessible">Username:</label>
-                <input name="user" id="usernameJoin" value="" placeholder="Nazwa użytkownika" data-theme="a" type="text">
+                <input name="user" id="usernameJoin" value="" placeholder="Nazwa użytkownika" data-theme="a" type="text" ng-model="otherUser.name">
                 <label for="passwordJoin" class="ui-hidden-accessible">Password:</label>
-                <input name="pass" id="passwordJoin" value="" placeholder="Hasło" data-theme="a" type="password">
+                <input name="pass" id="passwordJoin" value="" placeholder="Hasło" data-theme="a" type="password" ng-model="password">
                 <label for="repasswordJoin" class="ui-hidden-accessible">Password:</label>
                 <input name="pass" id="repasswordJoin" value="" placeholder="Powtórz hasło" data-theme="a" type="password">
                 <label for="nrJoin" class="ui-hidden-accessible">Username:</label>

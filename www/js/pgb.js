@@ -233,6 +233,7 @@ app.controller('controller', function ($scope, storageService) {
         $scope.otherGroup = new Group();
         $scope.currentEvent = new Event();
         $scope.currentMessage = new Message();
+        $scope.password = null;
 
         $scope.addUser = () => {
             try {
