@@ -238,7 +238,7 @@ app.controller('controller', function ($scope, storageService) {
         $scope.addUser = () => {
             try {
                 storageService.addUserIfEmpty($scope.otherUser, () => {
-                    $scope.loadUser($scope.otherUser).then(()=>{
+                    $scope.loadUser().then(()=>{
                         $scope.otherUser = new User();
                         $scope.$apply();
                     });
@@ -278,11 +278,11 @@ app.controller('controller', function ($scope, storageService) {
             })
         };
 
-        $scope.loadUser = async (user) => {
-            let key = prepareKey(user.mail);
+        $scope.loadUser = async () => {
+            let key = prepareKey($scope.otherUser.mail);
             storageService.db.ref().child("users/" + key).once("value", async (data) => {
                 $scope.currentUser = new User(data.val().mail, data.val().name, data.val().lastname, data.val().phone);
-                $scope.observeUser(user.mail);
+                $scope.observeUser($scope.otherUser.mail);
                 $scope.$apply()
             });
         };

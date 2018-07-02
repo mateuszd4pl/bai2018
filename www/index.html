@@ -39,10 +39,11 @@
             <div style="padding:10px 20px;">
                 <h3>Zaloguj się</h3>
                 <label for="un" class="ui-hidden-accessible">Nazwa użytkownika:</label>
-                <input name="user" id="un" value="" placeholder="Nazwa użytkownika" data-theme="a" type="text" ng-model="otherUser.name">
+                <input name="user" id="un" value="" placeholder="Nazwa użytkownika" data-theme="a" type="text" ng-model="otherUser.mail">
+                <label ng-bind="otherUser.mail"></label>
                 <label for="passw" class="ui-hidden-accessible">Hasło</label>
                 <input name="pass" id="passw" value="" placeholder="Hasło" data-theme="a" type="password" ng-model="password">
-                <button href="#mainGroup"  class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" ng-click="loadUser($scope.otherUser)">Zaloguj</button>
+                <a href="#mainGroup"  class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" ng-click="loadUser()">Zaloguj</a>
                 <h3>lub</h3>
                 <button href="#" class="ui-btn ui-corner-all ui-btn-b">Zaloguj poprzez Facebook</button>
             </div>
