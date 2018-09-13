@@ -2,17 +2,553 @@
 <html>
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="cordova.js"></script>
     <script src="js/angular.js"></script>
     <script src="js/angular-route.js"></script>
     <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/firebase.js"></script>
+    <link rel="stylesheet"
+          href="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.css"/>
+    <script src="https://rawgithub.com/jquery/jquery-ui/1-10-stable/ui/jquery.ui.datepicker.js"></script>
+    <script src="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.js"></script>
     <script src="js/pgb.js"></script>
+    <script src="js/script.js"></script>
 </head>
-<body ng-app="MeetApp" ng-controller="controller">
-<p ng-bind="text"></p>
-<button ng-click="test()"></button>
+<body ng-app="MeetApp" ng-controller="controller" onload="init()">
 
+<!-- Logowanie -->
+
+<div data-role="page" id="mainPage">
+    <div style="text-align: center">
+        <div class="center">
+            <div class="ui-grid-solo"><a href="#popupLogin" data-rel="popup" data-position-to="window"
+                                         class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a"
+                                         data-transition="pop" ng-click="error=''">Zaloguj się</a></div>
+            <div class="ui-grid-solo"><a href="#popupJoin" data-rel="popup" data-position-to="window"
+                                         class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a"
+                                         data-transition="pop" ng-click="error=''">Zarejestruj się</a></div>
+
+        </div>
+    </div>
+
+
+    <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
+        <form name="loginForm">
+            <div style="padding:10px 20px;">
+                <h3>Zaloguj się</h3>
+                <label for="un" class="ui-hidden-accessible">Nazwa użytkownika:</label>
+                <input name="user" id="un" value="" placeholder="Adres e-mail" data-theme="a" type="text"
+                       ng-model="otherUser.mail" required>
+                <label for="passw" class="ui-hidden-accessible">Hasło</label>
+                <input name="pass" id="passw" value="" placeholder="Hasło" data-theme="a" type="password"
+                       ng-model="password" required>
+                <button class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check"
+                        ng-click="login()" ng-disabled="loginForm.$invalid">Zaloguj
+                </button>
+                <b ng-bind="error"></b>
+            </div>
+        </form>
+    </div>
+
+
+    <div data-role="popup" id="popupJoin" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
+        <div style="padding:10px 50px;">
+            <h3>Zarejestruj się</h3>
+            <form name="registerForm">
+                <label for="unJoin" class="ui-hidden-accessible">Username:</label>
+                <input name="user" id="usernameJoin" value="" placeholder="Nazwa użytkownika" data-theme="a"
+                       type="text" ng-model="otherUser.name" required>
+                <label for="passwordJoin" class="ui-hidden-accessible">Password:</label>
+                <input name="pass" id="passwordJoin" value="" placeholder="Hasło" data-theme="a" type="password"
+                       ng-model="password" ng-change="checkPasswords()" required>
+                <label for="repasswordJoin" class="ui-hidden-accessible">Password:</label>
+                <input name="pass" id="repasswordJoin" value="" placeholder="Powtórz hasło" data-theme="a"
+                       type="password" ng-model="confirmPassword" ng-change="checkPasswords()" required>
+                <label for="nrJoin" class="ui-hidden-accessible">Username:</label>
+                <input name="userEmail" id="emailJoin" value="" placeholder="Adres email" data-theme="a"
+                       type="email" ng-model="otherUser.mail" required>
+                <button href="#mainGroup" type="submit"
+                        class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check"
+                        ng-click="register()" ng-disabled="registerForm.$invalid || !passwordsMatch">Zarejestruj
+                </button>
+            </form>
+            <b ng-bind="error"></b>
+        </div>
+    </div>
+</div>
+
+<!-- Edycja profilu -->
+<div data-role="page" id="editPerson">
+    <div data-role="header">
+        <a href="#editAccount" data-transition="slide"
+           class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+        <h1>Edytuj profil</h1>
+        <a href="#mainGroup"
+           class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <form name="changeNameForm">
+            <input id="editImie" value="" placeholder="Nazwa użytkownika" data-theme="a" type="text" ng-model="newName" required>
+            <!--<input id="editNazwisko" value="" placeholder="Nazwisko" data-theme="a" type="text">-->
+            <!--<input id="editNumer" value="" placeholder="Numer telefonu" data-theme="a" type="number">-->
+            <!--<input id="pw" value="" placeholder="Hasło" data-theme="a" type="password">-->
+            <a href="#popupSaveNewDate" data-rel="popup" data-position-to="window" data-transition="pop"
+               class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit" ng-disabled="changeNameForm.$invalid">Zapisz zmiany</a>
+        </form>
+    </div>
+
+    <div data-role="popup" id="popupSaveNewDate" data-overlay-theme="b" data-theme="b" data-dismissible="false"
+         style="max-width:400px;">
+        <div data-role="header" data-theme="a">
+            <h1>Zapisać zmiany?</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <h3 class="ui-title">Czy na pewno chcesz zmienić dane?</h3>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back"
+               ng-click="newName=''">Anuluj</a>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back"
+               data-transition="flow" ng-click="updateUser()">Zapisz zmiany</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- Ustawienia - mój profil -->
+<div data-role="page" id="editAccount">
+    <div data-role="header">
+        <a href="#" data-transition="slide"
+           class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+        <h1>Mój profil</h1>
+        <a href="#mainGroup"
+           class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <div style="text-align: center">
+            <div class="center">
+                <h2>Witaj ...</h2>
+                <a href="#editPerson" class="ui-btn" data-transition="flip">Edytuj profil</a>
+                <br>
+                <a href="#editPassword" class="ui-btn" data-transition="flip">Zmień hasło</a>
+                <!--<br>-->
+                <!--<a href="#popupAddFriend" class="ui-btn" data-transition="pop" data-rel="popup">Dodaj znajomego</a>-->
+                <!--<br>-->
+                <!--<a href="#friendsList" class="ui-btn" data-transition="flip">Lista znajomych</a>-->
+            </div>
+        </div>
+    </div>
+
+    <div data-role="popup" id="popupAddFriend" data-theme="a" class="ui-corner-all" data-overlay-theme="a">
+        <form>
+            <div style="padding:10px 50px;">
+                <h3>Dodaj znajomego</h3>
+                <input name="user" id="unJoin" value="" placeholder="adres email" data-theme="a" type="email">
+                <h3>lub</h3>
+                <input name="user" id="nrJoin" value="" placeholder="ID" data-theme="a" type="number">
+                <button type="submit"
+                        class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">
+                    Dodaj
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<!-- Edycja hasła -->
+<div data-role="page" id="editPassword">
+    <div data-role="header">
+        <a href="#editAccount" data-transition="slide"
+           class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+        <h1>Zmień hasło</h1>
+        <a href="#mainGroup"
+           class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <form name="changePasswordForm">
+            <input name="pass" id="newPw" value="" placeholder="Nowe hasło" data-theme="a" type="password"
+                   ng-model="password" ng-change="checkPasswords()" required>
+            <input name="pass" id="reNewPw" value="" placeholder="Powtórz hasło" data-theme="a" type="password"
+                   ng-model="confirmPassword" ng-change="checkPasswords()" required>
+            <button type="submit" href="#popupSaveNewPassword" data-rel="popup" data-position-to="window"
+                    data-transition="pop"
+                    class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-edit" ng-click="changePassword()"
+                    ng-disabled="changePasswordForm.$invalid || !passwordsMatch">Zapisz zmiany
+            </button>
+        </form>
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+
+    <div data-role="popup" id="popupSaveNewPassword" data-overlay-theme="b" data-theme="b" data-dismissible="false"
+         style="max-width:400px;">
+        <div data-role="header" data-theme="a">
+            <h1>Zapisać zmiany?</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <h3 class="ui-title">Czy na pewno chcesz zmienić hasło?</h3>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Anuluj</a>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back"
+               data-transition="flow">Zapisz zmiany</a>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- Moje grupy -->
+<div data-role="page" id="mainGroup">
+    <div data-role="header">
+        <a href="#barsMenu" data-rel="popup" data-transition="slide"
+           class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext"></a>
+        <h1>Moje grupy</h1>
+        <a href="#addMenu" data-rel="popup" data-transition="slide"
+           class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-plus ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <div role="main" class="ui-content">
+            <ul list-view data-watch="currentUser.groups" id="list" class="touch" data-role="listview" data-icon="false"
+                data-split-icon="delete">
+                <li ng-repeat="group in currentUser.groups">
+                    <a href="#czat" ng-click="changeGroup(group.key)">
+                        <h3>{{group.name}}</h3>
+                        <p class="ui-li-aside" ng-init="getGroupEventsNumber(group)"><strong>Ilość wydarzeń:
+                            {{group.eventsNumber}} </strong></p>
+                    </a>
+                </li>
+            </ul>
+        </div><!-- /content -->
+        <div id="confirm" class="ui-content" data-role="popup" data-theme="a">
+            <p id="question">Are you sure you want to delete:</p>
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <a id="yes" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Yes</a>
+                </div>
+                <div class="ui-block-b">
+                    <a id="cancel" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Cancel</a>
+                </div>
+            </div>
+        </div><!-- /popup -->
+    </div>
+
+    <div data-role="popup" id="addMenu" data-theme="b" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <!--<li>-->
+            <!--<div data-role="collapsible" data-inset="false">-->
+            <!--<h2>Dołącz do grupy</h2>-->
+            <!--<ul data-role="listview">-->
+            <!--<li><input name="user" id="joinToGroupName" value="" placeholder="Nazwa" data-theme="a"-->
+            <!--type="text"></li>-->
+            <!--<li><input name="user" id="JoinToGroupID" value="" placeholder="ID" data-theme="a"-->
+            <!--type="number"></li>-->
+            <!--<li><input name="pass" id="JoinToGroupPassword" value="" placeholder="Hasło" data-theme="a"-->
+            <!--type="password"></li>-->
+            <!--<li>-->
+            <!--<button type="submit"-->
+            <!--class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">-->
+            <!--Dołącz-->
+            <!--</button>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</div>-->
+            <!--</li>-->
+            <li><a href="#newGroup">Utwórz nową grupę</a></li>
+        </ul>
+    </div>
+
+    <div data-role="popup" id="barsMenu" data-theme="a" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
+            <li><a href="#mainPage" data-transition="slidedown" ng-click="logout()">Wyloguj</a></li>
+        </ul>
+    </div>
+
+
+    <div data-role="popup" id="popupPadded" class="ui-content">
+        <p>This is a popup with the <code>ui-content</code> class added to the popup container.</p>
+    </div>
+
+    <!--<div data-role="popup" id="popupJoinToGroup" data-theme="a" class="ui-corner-all" data-overlay-theme="a">-->
+    <!--<form>-->
+    <!--<div style="padding:10px 50px;">-->
+    <!--<h3>Please join us</h3>-->
+    <!--<input name="user" id="JoinToGroupID1" value="" placeholder="Klucz" data-theme="a" type="text" ng-model="otherGroup.key">-->
+    <!--<button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" ng-click="addUserToGroup(currentUser.mail, )">-->
+    <!--Join-->
+    <!--</button>-->
+    <!--</div>-->
+    <!--</form>-->
+    <!--</div>-->
+</div>
+
+<!-- Utwórz grupę -->
+<div data-role="page" id="newGroup">
+    <div data-role="header">
+        <a href="#mainGroup" data-transition="slide"
+           class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+        <h1>Utwórz grupę</h1>
+        <a href="#mainGroup"
+           class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <form name="newGroupForm">
+            <input id="newGroupName" value="" placeholder="Nazwa" data-theme="a" type="text" ng-model="otherGroup.name" required>
+            <!--<input id="newGroupPassword" value="" placeholder="Hasło" data-theme="a" type="password"-->
+            <!--ng-model="otherGroup.password">-->
+            <button type="submit" class="ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-check"
+                    ng-click="addGroupAndAssignUser()" ng-disabled="newGroupForm.$invalid">Stwórz grupę
+            </button>
+        </form>
+    </div>
+
+</div>
+
+<!-- Widok grupy -->
+
+
+<div data-role="page" id="czat">
+    <div data-role="header">
+        <a href="#barsMenuGroup" data-rel="popup" data-transition="slide"
+           class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext"></a>
+        <h1>{{currentGroup.name}}</h1>
+        <h3>Czat</h3>
+        <a href="#mainGroup"
+           class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <ul id="conversation" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+            <li ng-repeat="message in currentGroup.chat">
+                <h3>{{message.author}}</h3>
+                <p>{{message.content}}</p>
+            </li>
+        </ul>
+    </div>
+
+    <div data-role="footer" class="footer" style="min-height: 85px">
+        <textarea cols="40" rows="8" placeholder="Napisz wiadomość" ng-model="currentMessage.content"> </textarea>
+        <button ng-click="sendMessage()">Wyślij</button>
+    </div>
+
+    <div data-role="popup" id="barsMenuGroup" data-theme="a" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
+            <li><a href="#eventsView" data-transition="slidedown">Wydarzenia</a></li>
+            <li><a href="#addUserView" data-transition="slidedown">Dodaj użytkownika</a></li>
+            <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
+        </ul>
+    </div>
+
+</div>
+
+<!-- Dodaj użytkownika -->
+
+
+<div data-role="page" id="addUserView">
+    <div data-role="header">
+        <a href="#czat" data-transition="slide"
+           class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+        <h1>{{currentGroup.name}}</h1>
+        <a href="#mainGroup"
+           class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <form name="addUserForm">
+            <div style="padding:10px 20px;">
+                <h3>Dodaj użytkownika</h3>
+                <input name="user" id="um" value="" placeholder="Adres e-mail" data-theme="a" type="text"
+                       ng-model="otherUser.mail" required>
+                <button ng-click="addUserToGroup(otherUser.mail, currentGroup.key).then(clearOtherUser())">Dodaj
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+
+</div>
+
+<!-- Widok wydarzeń -->
+
+
+<div data-role="page" id="eventsView">
+    <div data-role="header">
+        <a href="#barsMenuEvents" data-rel="popup" data-transition="slide"
+           class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext"></a>
+        <h1>{{currentGroup.name}}</h1>
+        <h5>Wydarzenia</h5>
+        <a href="#mainGroup"
+           class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <ul list-view data-watch="currentGroup.events" id="eventsList" class="touch" data-role="listview"
+            data-icon="false" data-split-icon="delete">
+            <li ng-repeat="event in currentGroup.events">
+                <a href="#eventView" ng-click="loadEvent(event.key)">
+                    <h3>{{event.name}}</h3>
+                    <p>{{event.info}}</p>
+                    <p>{{event.date}}</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+
+    <div data-role="popup" id="barsMenuEvents" data-theme="a" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
+            <li><a href="#czat" data-transition="slidedown">Czat grupowy</a></li>
+            <li><a href="#makeEventView" data-transition="slidedown">Utwórz wydarzenie</a></li>
+            <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
+        </ul>
+    </div>
+
+</div>
+
+<!-- Widok wydarzenia -->
+
+
+<div data-role="page" id="eventView">
+    <div data-role="header">
+        <a href="#barsMenuEvent" data-rel="popup" data-transition="slide"
+           class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext"></a>
+        <h1 ng-bind="currentEvent.name">Nazwa wydarzenia</h1>
+        <a href="#mainGroup"
+           class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <h2>Opis:</h2>
+        <h3 ng-bind="currentEvent.info"></h3>
+        <h2>Czas:</h2>
+        <h3 ng-bind="currentEvent.time"></h3>
+        <h2>Data:</h2>
+        <h3 ng-bind="currentEvent.date"></h3>
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+
+    <div data-role="popup" id="barsMenuEvent" data-theme="a" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
+            <li><a href="#czat" data-transition="slidedown">Czat grupowy</a></li>
+            <li><a href="#eventsView" data-transition="slidedown">Widok wydarzeń</a></li>
+            <li><a href="#makeEventView" data-transition="slidedown">Utwórz wydarzenie</a></li>
+            <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
+        </ul>
+    </div>
+
+</div>
+
+
+<!-- Widok tworzenia wydarzenia -->
+
+
+<div data-role="page" id="makeEventView">
+    <div data-role="header">
+        <a href="#barsMenuMakeEvent" data-rel="popup" data-transition="slide"
+           class="ui-btn-left ui-btn ui-btn-inline  ui-corner-all ui-btn-icon-left ui-icon-bars ui-btn-icon-notext"></a>
+        <h1>Nowe wydarzenia</h1>
+        <a href="#mainGroup"
+           class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+
+        <form name="addEventForm">
+            <h3>Nazwa wydarzenia</h3>
+            <input type="text" ng-model="otherEvent.name" required>
+            <h3>Data wydarzenia</h3>
+            <input type="text" id="date-input" data-inline="true" ng-model="otherEvent.date" required>
+            <h3>Godzina rozpoczęcia wydarzenia</h3>
+            <input type="text" data-clear-btn="false" name="time-1" id="eventTime" ng-model="otherEvent.time" required>
+            <!--<a href="#popupAddFriendEvent" data-rel="popup" data-position-to="window"-->
+            <!--class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a"-->
+            <!--data-transition="pop">Dodaj uczestnika</a>-->
+            <h3>Opis wydarzenia:</h3>
+            <input type="text" ng-model="otherEvent.info" required>
+
+            <h3>Lista uczestników:</h3>
+            <div>
+                <ul id="eventFriends" class="touch" data-role="listview" data-icon="false" data-split-icon="delete">
+                    <li ng-repeat="user in currentGroup.members">
+                        <a>
+                            <p>{{user.name}}</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <br>
+            <button type="submit" value="Utwórz wydarzenie" ng-click="addEvent()" ng-disabled="addEventForm.$invalid">
+                Utwórz
+            </button>
+        </form>
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+
+    <div data-role="popup" id="barsMenuMakeEvent" data-theme="a" data-overlay-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider"></li>
+            <li><a href="#editAccount" data-transition="slidedown">Mój profil</a></li>
+            <li><a href="#czat" data-transition="slidedown">Czat grupowy</a></li>
+            <li><a href="#eventsView" data-transition="slidedown">Widok wydarzeń</a></li>
+            <li><a href="#mainPage" data-transition="slidedown">Wyloguj</a></li>
+        </ul>
+    </div>
+
+    <!--<div data-role="popup" id="popupAddFriendEvent" data-theme="a" class="ui-corner-all" data-overlay-theme="a">-->
+    <!--<form>-->
+    <!--<div style="padding:10px 50px;">-->
+    <!--<h3>Dodaj znajomego</h3>-->
+    <!--<input name="user" id="emailFriendEvent" value="" placeholder="adres email" data-theme="a"-->
+    <!--type="email" ng-model="otherUser.mail">-->
+    <!--<button type="submit"-->
+    <!--class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" ng-click="addUserToEvent()">-->
+    <!--Dodaj-->
+    <!--</button>-->
+    <!--</div>-->
+    <!--</form>-->
+    <!--</div>-->
+</div>
 </body>
+<script>
+    const config = {
+        apiKey: "AIzaSyAuvAZqxZvsINf-phvCmvfkdMwiDGO9WyE",
+        authDomain: "bai18-a647f.firebaseapp.com",
+        databaseURL: "https://bai18-a647f.firebaseio.com",
+        projectId: "bai18-a647f",
+        storageBucket: "",
+        messagingSenderId: "59249875291"
+    };
+    firebase.initializeApp(config);
+</script>
 </html>
