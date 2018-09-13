@@ -32,7 +32,7 @@ Aplikacja ma na celu poprawić komunikację pomiędzy osobami tworzącymi wydarz
 #### Mateusz Dyrka
 
 #### Kamil Przybycień
-1.	Ekran logowania
+1.	Ekran logowania -0,5h
 2.	Ekran edycji profilu
 3.	Ekran profilu
 4.	Ekran edycji hasła
