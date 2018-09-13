@@ -67,6 +67,5 @@ https://github.com/mateuszd4pl/bai2018
 
 
 ### Link do systemu zarządania: 
-https://trello.com/bai2018
+https://trello.com/b/1RIS67I2/projectboard
 
-### Prototypowanie:
