@@ -32,6 +32,17 @@ Aplikacja ma na celu poprawić komunikację pomiędzy osobami tworzącymi wydarz
 #### Mateusz Dyrka
 
 #### Kamil Przybycień
+1.	Ekran logowania
+2.	Ekran edycji profilu
+3.	Ekran profilu
+4.	Ekran edycji hasła
+5.	Ekran widoku grup
+6.	Ekran tworzenia grupy
+7.	Ekran widoku grupy
+8.	Ekran widoku listy znajomych
+9.	Ekran widoku listy wydarzeń
+10.	Ekran widoku wydarzenia
+11.	Ekran tworzenia wydarzeń
 
 ### Link do repozytorium:
 https://github.com/mateuszd4pl/bai2018
