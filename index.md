@@ -43,8 +43,8 @@ Aplikacja ma na celu poprawić komunikację pomiędzy osobami tworzącymi wydarz
 
 #### Mateusz Dyrka
 
-- Prototypowanie - 9h
-- Podział zadań do wykonania - 1.5h
+- Prototypowanie - 1,5h
+- Podział zadań do wykonania - 0,5h
 
 #### Kamil Przybycień
 
