@@ -27,7 +27,7 @@ Aplikacja ma na celu poprawić komunikację pomiędzy osobami tworzącymi wydarz
 
 ### Raport prac końcowych
 
-#### Szymon Piotrowski
+#### Szymon Piotrowski (64,5h / 52,7%)
 - Prototypowanie - 9h
 - Zapoznanie z jquery mobile - 6h
 - Przygotowanie informacji na temat obsługi fire base - 5h
@@ -41,12 +41,12 @@ Aplikacja ma na celu poprawić komunikację pomiędzy osobami tworzącymi wydarz
 - Testowanie aplikacji - 4h
 - Poprawki w działaniu aplikacji - 3,5h
 
-#### Mateusz Dyrka
+#### Mateusz Dyrka (2h / 1,6%)
 
 - Prototypowanie - 1,5h
 - Podział zadań do wykonania - 0,5h
 
-#### Kamil Przybycień
+#### Kamil Przybycień (56h / 45,7%)
 
 - Prototypowanie - 9h
 - Zapoznanie z jquery mobile - 6h
