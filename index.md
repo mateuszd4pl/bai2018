@@ -1,28 +1,36 @@
-# Serwis społecznościowy ukierunkowany na tworzenie grup
 
-### Serwis społecznościowy zawierający poniższe funkcjonalności:
+# MeetApp
+## Serwis społecznościowy ukierunkowany na tworzenie grup
 
-* rejestracja / logowanie
+### Zakładane funkcjonalności:
 
-* tablica postów (dodawanie, edytowanie, usuwanie, ?komentarze?, ?załączniki?)
+* rejestracja / logowanie,
 
-* zarządzanie grupami (tworzenie, wyszukiwanie, usuwanie)
+* tworzenie wydarzeń,
 
-* tablica rozliczeniowa - informacje o finansach skłądających się na życie grupy (edytowanie, powiadomienia, przypomnienia)
+* prowadzenie czatu,
 
-* czat / wiadomosci prywatne
+* tworzenie grup,
 
-* wydarzenia (dodawnie, edytowanie, usuwanie, API wykorzystane do wyszukiwania miejsc spotkań)
+* zarządanie osobami w grupach,
+
+* zarządzanie własnym profilem,
+
+* przegląd zbliżających się wydarzeń
+
+## Opis aplikacji
+
+## Autorzy aplikacji
+-Kamil Przybycien,
+-Szymon Piotrowski,
+-Mateusz Dyrka
+
+### Link do repozytorium:
+https://github.com/mateuszd4pl/bai2018
 
 
-Team members:
-Kamil Przybycien,
-Piotr Tatar,
-Szymon Piotrowski,
-Mateusz Dyrka
-
-
-Project management: https://trello.com/bai2018
+### Link do systemu zarządania: 
+https://trello.com/bai2018
 
 
 Project prototype:
