@@ -19,11 +19,19 @@
 * przegląd zbliżających się wydarzeń
 
 ## Opis aplikacji
-
-## Autorzy aplikacji
-- Kamil Przybycien,
+Aplikacja ma na celu poprawić komunikację pomiędzy osobami tworzącymi wydarzenie. Stanowi organizer spotkań z określoną grupą osób.  
+### Autorzy aplikacji
+- Kamil Przybycień,
 - Szymon Piotrowski,
 - Mateusz Dyrka
+
+### Raport prac końcowych
+
+#### Szymon Piotrowski
+
+#### Mateusz Dyrka
+
+#### Kamil Przybycień
 
 ### Link do repozytorium:
 https://github.com/mateuszd4pl/bai2018
