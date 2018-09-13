@@ -21,9 +21,9 @@
 ## Opis aplikacji
 
 ## Autorzy aplikacji
--Kamil Przybycien,
--Szymon Piotrowski,
--Mateusz Dyrka
+- Kamil Przybycien,
+- Szymon Piotrowski,
+- Mateusz Dyrka
 
 ### Link do repozytorium:
 https://github.com/mateuszd4pl/bai2018
