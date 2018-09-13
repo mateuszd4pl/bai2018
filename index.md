@@ -1,19 +1,18 @@
-Title: Serwis społecznościowy ukierunkowany na tworzenie grup
+# Serwis społecznościowy ukierunkowany na tworzenie grup
 
+### Serwis społecznościowy zawierający poniższe funkcjonalności:
 
-Discription: Serwis społecznościowy zawierający poniższe funkcjonalności:
+* rejestracja / logowanie
 
-- rejestracja / logowanie
+* tablica postów (dodawanie, edytowanie, usuwanie, ?komentarze?, ?załączniki?)
 
-- tablica postów (dodawanie, edytowanie, usuwanie, ?komentarze?, ?załączniki?)
+* zarządzanie grupami (tworzenie, wyszukiwanie, usuwanie)
 
-- zarządzanie grupami (tworzenie, wyszukiwanie, usuwanie)
+* tablica rozliczeniowa - informacje o finansach skłądających się na życie grupy (edytowanie, powiadomienia, przypomnienia)
 
-- tablica rozliczeniowa - informacje o finansach skłądających się na życie grupy (edytowanie, powiadomienia, przypomnienia)
+* czat / wiadomosci prywatne
 
-- czat / wiadomosci prywatne
-
-- wydarzenia (dodawnie, edytowanie, usuwanie, API wykorzystane do wyszukiwania miejsc spotkań)
+* wydarzenia (dodawnie, edytowanie, usuwanie, API wykorzystane do wyszukiwania miejsc spotkań)
 
 
 Team members:
