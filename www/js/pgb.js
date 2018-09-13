@@ -38,8 +38,8 @@ app.service('storageService', function () {
         });
     };
 
-    this.updateUser = async (user) => {
-        let key = prepareKey(user.mail);
+    this.updateUser = async (mail ,user) => {
+        let key = prepareKey(mail);
 
         try {
             if (key === null || key === undefined || key === "") {
@@ -242,6 +242,7 @@ app.controller('controller', function ($scope, storageService) {
         $scope.password = null;
         $scope.confirmPassword = null;
         $scope.passwordsMatch = false;
+        $scope.newName = "";
 
         $scope.addUser = async () => {
             try {
@@ -264,13 +265,16 @@ app.controller('controller', function ($scope, storageService) {
             }).then(() => {
                 $scope.loadUser().then(() => {
                     changePage("mainGroup");
+                    $scope.password = null;
+                    $scope.confirmPassword = null;
+                    $scope.passwordsMatch = false;
                 })
             })
         };
 
         $scope.checkPasswords = () => {
             $scope.passwordsMatch = $scope.password === $scope.confirmPassword;
-            console.log($scope.passwordsMatch)
+            print($scope.passwordsMatch)
         };
 
         $scope.logout = () => {
@@ -289,11 +293,11 @@ app.controller('controller', function ($scope, storageService) {
             });
         };
 
-        $scope.resetStyle = () => {
-            let lview = $("[data-role='#list']");
-            lview.listview();
-            lview.listview("refresh");
-        };
+        // $scope.resetStyle = () => {
+        //     let lview = $("[data-role='#list']");
+        //     lview.listview();
+        //     lview.listview("refresh");
+        // };
 
         $scope.addGroupAndAssignUser = () => {
             storageService.addGroupAndGetKey($scope.otherGroup).then((key) => {
@@ -341,6 +345,8 @@ app.controller('controller', function ($scope, storageService) {
                 $scope.currentUser = new User(data.val().mail, data.val().name, data.val().lastname, data.val().phone);
                 $scope.observeUser($scope.otherUser.mail);
                 $scope.$apply();
+            }).then(()=>{
+                $scope.clearOtherUser();
             });
         };
 
@@ -394,6 +400,8 @@ app.controller('controller', function ($scope, storageService) {
                     group.eventsNumber = 0;
                 }
 
+            }).then(()=>{
+                $scope.safeApply();
             })
         };
 
@@ -445,6 +453,20 @@ app.controller('controller', function ($scope, storageService) {
                     $scope.safeApply();
                 })
             })
+        };
+
+        $scope.changePassword = ()=>{
+
+            let user = firebase.auth().currentUser;
+            user.updatePassword($scope.password);
+            $scope.password = null;
+            $scope.confirmPassword = null;
+            $scope.passwordsMatch = false;
+            changePage("mainGroup")
+        };
+
+        $scope.updateUser = async ()=>{
+          storageService.updateUser($scope.currentUser.mail ,{name:$scope.newName})
         };
 
         $scope.setGroups = () => {
@@ -513,34 +535,34 @@ function User(mail, name, lastname, phone) {
         this.name = name
     }
 
-    if (lastname === undefined) {
-        this.lastname = "";
-    } else {
-        this.lastname = lastname;
-    }
+    // if (lastname === undefined) {
+    //     this.lastname = "";
+    // } else {
+    //     this.lastname = lastname;
+    // }
+    //
+    // if (mail === undefined) {
+    //     this.phone = ""
+    // } else {
+    //     this.phone = phone;
+    // }
 
-    if (mail === undefined) {
-        this.phone = ""
-    } else {
-        this.phone = phone;
-    }
-
-    this.friends = [];
+    // this.friends = [];
     this.groups = [];
 }
 
-function Group(name, password) {
+function Group(name) {
     if (name === undefined) {
         this.name = "";
     } else {
         this.name = name
     }
 
-    if (password === undefined) {
-        this.password = "";
-    } else {
-        this.password = password
-    }
+    // if (password === undefined) {
+    //     this.password = "";
+    // } else {
+    //     this.password = password
+    // }
 
     this.members = [];
     this.events = [];
@@ -560,7 +582,6 @@ function Event(name, info) {
         this.info = info
     }
 
-    this.date = new Date();
     this.date = "";
     this.time = "";
 }
