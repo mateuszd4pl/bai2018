@@ -243,6 +243,7 @@ app.controller('controller', function ($scope, storageService) {
         $scope.confirmPassword = null;
         $scope.passwordsMatch = false;
         $scope.newName = "";
+        $scope.error = "";
 
         $scope.addUser = async () => {
             try {
@@ -258,17 +259,18 @@ app.controller('controller', function ($scope, storageService) {
         };
 
         $scope.login = () => {
-            firebase.auth().signInWithEmailAndPassword($scope.otherUser.mail, $scope.password).catch(function (error) {
-                let errorCode = error.code;
-                let errorMessage = error.message;
-                console.log(errorMessage);
-            }).then(() => {
+            firebase.auth().signInWithEmailAndPassword($scope.otherUser.mail, $scope.password).then(() => {
                 $scope.loadUser().then(() => {
                     changePage("mainGroup");
                     $scope.password = null;
                     $scope.confirmPassword = null;
                     $scope.passwordsMatch = false;
+                }).then(()=>{
+                    $scope.error = ""
                 })
+            }).catch(function (error) {
+                $scope.error = error.message;
+                $scope.safeApply()
             })
         };
 
@@ -282,15 +284,16 @@ app.controller('controller', function ($scope, storageService) {
         };
 
         $scope.register = () => {
-            firebase.auth().createUserWithEmailAndPassword($scope.otherUser.mail, $scope.password).catch(function (error) {
-                let errorCode = error.code;
-                let errorMessage = error.message;
-                console.log(errorMessage);
-            }).then(() => {
+            firebase.auth().createUserWithEmailAndPassword($scope.otherUser.mail, $scope.password).then(() => {
                 $scope.addUser().then(() => {
                     $scope.login();
+                }).then(()=>{
+                    $scope.error = ""
                 })
-            });
+            }).catch(function (error) {
+                $scope.error = error.message;
+                $scope.safeApply()
+            })
         };
 
         // $scope.resetStyle = () => {
@@ -305,7 +308,6 @@ app.controller('controller', function ($scope, storageService) {
                     storageService.assignGroupToUser($scope.currentUser.mail, key).then(() => {
                         // $scope.changeGroup(key);
                         changePage("mainGroup");
-                        console.log($scope.currentUser.groups)
                     });
                 });
             }).then(() => {
@@ -320,6 +322,7 @@ app.controller('controller', function ($scope, storageService) {
 
         $scope.addEvent = async () => {
             storageService.addEvent($scope.currentGroup.key, $scope.otherEvent).then(() => {
+                $scope.getGroupEventsNumber($scope.currentGroup.key);
                 changePage("eventsView");
             });
 
@@ -466,7 +469,8 @@ app.controller('controller', function ($scope, storageService) {
         };
 
         $scope.updateUser = async ()=>{
-          storageService.updateUser($scope.currentUser.mail ,{name:$scope.newName})
+          storageService.updateUser($scope.currentUser.mail ,{name:$scope.newName});
+            changePage("mainGroup")
         };
 
         $scope.setGroups = () => {
