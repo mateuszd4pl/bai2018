@@ -40,10 +40,14 @@ Aplikacja ma na celu poprawić komunikację pomiędzy osobami tworzącymi wydarz
 - Obsługa profilu w bazie danych - 7h
 - Testowanie aplikacji - 4h
 - Poprawki w działaniu aplikacji - 3,5h
+
 #### Mateusz Dyrka
+
 - Prototypowanie - 9h
 - Podział zadań do wykonania - 1.5h
+
 #### Kamil Przybycień
+
 - Prototypowanie - 9h
 - Zapoznanie z jquery mobile - 6h
 - Podział zadań do wykonania - 1.5h
